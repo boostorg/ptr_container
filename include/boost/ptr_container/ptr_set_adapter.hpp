@@ -308,7 +308,7 @@ namespace ptr_container_detail
             set_basic_clone_and_insert( first, last );
         }
 
-#if defined(BOOST_NO_SFINAE) || defined(BOOST_NO_FUNCTION_TEMPLATE_ORDERING)
+#if defined(BOOST_NO_SFINAE) || BOOST_WORKAROUND(__SUNPRO_CC, <= 0x580)
 #else    
         
         template< class Range >
@@ -337,7 +337,7 @@ namespace ptr_container_detail
             return this->single_transfer( first, last, from );
         }
 
-#ifdef BOOST_NO_SFINAE
+#if defined(BOOST_NO_SFINAE) || BOOST_WORKAROUND(__SUNPRO_CC, <= 0x580)
 #else    
 
         template< class PtrSetAdapter, class Range >
@@ -458,7 +458,7 @@ namespace ptr_container_detail
             set_basic_clone_and_insert( first, last );
         }
 
-#ifdef BOOST_NO_SFINAE
+#if defined(BOOST_NO_SFINAE) || BOOST_WORKAROUND(__SUNPRO_CC, <= 0x580)
 #else    
         
         template< class Range >
@@ -486,7 +486,7 @@ namespace ptr_container_detail
             return this->multi_transfer( first, last, from );
         }
 
-#ifdef BOOST_NO_SFINAE
+#if defined(BOOST_NO_SFINAE) || BOOST_WORKAROUND(__SUNPRO_CC, <= 0x580)
 #else    
         
         template< class PtrSetAdapter, class Range >
