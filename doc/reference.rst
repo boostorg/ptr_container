@@ -52,7 +52,6 @@ The Clonable concept
 
 **Refinement of**
 
-- Copy Constructible
 - Heap Allocable
 - Heap Deallocable
 
@@ -70,11 +69,11 @@ the containers does not even require the stored type to be Clonable.
        
 **Valid expressions**
 
-===================================== =========================== ========================================================================================
-     **Expression**                          **Type**                  **Semantics**
-   ``new_clone(a);``                         ``T*``                  Allocate a new object that can be considered equivalent to the ``a`` object
+===================================== =========================== ======================================================================================== ===================================
+     **Expression**                          **Type**                  **Semantics**                                                                        **Postcondition**
+   ``new_clone(a);``                         ``T*``                  Allocate a new object that can be considered equivalent to the ``a`` object            ``typeid(new_clone(a)) == typeid(a)``
    ``delete_clone(ptr);``                    ``void``                Deallocate an object previously allocated with ``allocate_clone()``. Must not throw 
-===================================== =========================== ========================================================================================
+===================================== =========================== ======================================================================================== ===================================
 
 
 Default implementation

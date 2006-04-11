@@ -333,7 +333,6 @@ the <a class="reference" href="reference.html#the-clone-allocator-concept">Clone
 <h1><a id="the-clonable-concept" name="the-clonable-concept">The Clonable concept</a></h1>
 <p><strong>Refinement of</strong></p>
 <ul class="simple">
-<li>Copy Constructible</li>
 <li>Heap Allocable</li>
 <li>Heap Deallocable</li>
 </ul>
@@ -365,22 +364,26 @@ the containers does not even require the stored type to be Clonable.</p>
 <p><strong>Valid expressions</strong></p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="24%" />
-<col width="18%" />
-<col width="58%" />
+<col width="19%" />
+<col width="14%" />
+<col width="46%" />
+<col width="20%" />
 </colgroup>
 <tbody valign="top">
 <tr><td><strong>Expression</strong></td>
 <td><strong>Type</strong></td>
 <td><strong>Semantics</strong></td>
+<td><strong>Postcondition</strong></td>
 </tr>
 <tr><td><tt class="docutils literal"><span class="pre">new_clone(a);</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">T*</span></tt></td>
 <td>Allocate a new object that can be considered equivalent to the <tt class="docutils literal"><span class="pre">a</span></tt> object</td>
+<td><tt class="docutils literal"><span class="pre">typeid(new_clone(a))</span> <span class="pre">==</span> <span class="pre">typeid(a)</span></tt></td>
 </tr>
 <tr><td><tt class="docutils literal"><span class="pre">delete_clone(ptr);</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">void</span></tt></td>
 <td>Deallocate an object previously allocated with <tt class="docutils literal"><span class="pre">allocate_clone()</span></tt>. Must not throw</td>
+<td>&nbsp;</td>
 </tr>
 </tbody>
 </table>
