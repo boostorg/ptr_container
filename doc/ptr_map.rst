@@ -59,5 +59,5 @@ to store the pointers.
         } // namespace 'boost'  
 
 
-:copyright:     Thorsten Ottosen 2004-2005. 
+:Copyright:     Thorsten Ottosen 2004-2006. 
 

@@ -11,7 +11,7 @@
 :Contact:       nesotto@cs.aau.dk
 :organizations: `Department of Computer Science`_, Aalborg University, and `Dezide Aps`_
 :date:          3rd of May 2005
-:copyright:     Thorsten Ottosen 2004-2005. Use, modification and distribution is subject to the Boost Software License, Version 1.0 (see LICENSE_1_0.txt__).
+:Copyright:     Thorsten Ottosen 2004-2006. Use, modification and distribution is subject to the Boost Software License, Version 1.0 (see LICENSE_1_0.txt__).
 
 __ http://www.boost.org/LICENSE_1_0.txt
 
@@ -31,32 +31,34 @@ and designs for dealing with OO specific problems
 * Motivation_
 * Tutorial_
 * Reference_
-
-  - `Conventions <conventions.html>`_
-  - `The Clonable Concept <reference.html#the-clonable-concept>`_
-  - `The Clone Allocator Concept <reference.html#the-clone-allocator-concept>`_
-  - `Pointer container adapters <reference.html#pointer-container-adapters>`_
-  - `Sequence container classes <reference.html#sequence-containers>`_
-
-    - `ptr_vector <ptr_vector.html>`_
-    - `ptr_deque <ptr_deque.html>`_
-    - `ptr_list <ptr_list.html>`_
-    - `ptr_array <ptr_array.html>`_
-  - `Associative container classes  <reference.html#associative-containers>`_
-
-    - `ptr_set <ptr_set.html>`_
-    - `ptr_multiset <ptr_multiset.html>`_
-    - `ptr_map <ptr_map.html>`_
-    - `ptr_multimap <ptr_multimap.html>`_
-  - `Indirected functions <indirect_fun.html>`_
-  - `Class nullable <reference.html#class-nullable>`_
-  - `Exception classes <reference.html#exception-classes>`_
 * `Usage guidelines`_
 * Examples_
 * `Library headers`_
 * FAQ_
 * Acknowledgements_
 * References_
+
+..
+	  - `Conventions <conventions.html>`_
+	  - `The Clonable Concept <reference.html#the-clonable-concept>`_
+	  - `The Clone Allocator Concept <reference.html#the-clone-allocator-concept>`_
+	  - `Pointer container adapters <reference.html#pointer-container-adapters>`_
+	  - `Sequence container classes <reference.html#sequence-containers>`_
+	
+	    - `ptr_vector <ptr_vector.html>`_
+	    - `ptr_deque <ptr_deque.html>`_
+	    - `ptr_list <ptr_list.html>`_
+	    - `ptr_array <ptr_array.html>`_
+	  - `Associative container classes  <reference.html#associative-containers>`_
+	
+	    - `ptr_set <ptr_set.html>`_
+	    - `ptr_multiset <ptr_multiset.html>`_
+	    - `ptr_map <ptr_map.html>`_
+	    - `ptr_multimap <ptr_multimap.html>`_
+	  - `Indirected functions <indirect_fun.html>`_
+	  - `Class nullable <reference.html#class-nullable>`_
+	  - `Exception classes <reference.html#exception-classes>`_
+	  
 
 
 .. _Tutorial: tutorial.html
@@ -129,6 +131,7 @@ The following people have been very helpful:
 - Russell Hind for help with Borland compatibility
 - Jonathan Wakely for his great help with GCC compatibility and bug fixes
 - Pavel Chikulaev for comments and bug-fixes
+- Andreas Hommel for fixing the nasty Metrowerks bug
 
 ==========
 References
@@ -177,5 +180,5 @@ __ http://www.two-sdg.demon.co.uk/curbralan/papers/europlop/NullObject.pdf
 .. _pointainer: http://ootips.org/yonat/4dev/pointainer.h 
 
 
-:copyright:     Thorsten Ottosen 2004-2005. 
+:Copyright:     Thorsten Ottosen 2004-2006. 
 

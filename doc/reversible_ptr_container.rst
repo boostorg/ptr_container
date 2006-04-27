@@ -71,13 +71,18 @@ Its purpose is to present the general interface of all the pointer containers.
                 void      clear():
             
             public: // `pointer container requirements`_
-            
                 auto_type                                replace( iterator position, T* x );
 		template< class U >
 		auto_type                                replace( iterator position, std::auto_ptr<U> x );    
                 std::auto_ptr<reversible_ptr_container>  clone() const;    
                 std::auto_ptr<reversible_ptr_container>  release();
                 auto_type                                release( iterator position );
+		
+	    public: // `serialization`_
+	        template< class Archive >
+	        void save( Archive& ar, const unsigned version ) const;  
+	        template< class Archive >
+	        void load( Archive& ar, const unsigned version );	
             
             }; //  class 'reversible_ptr_container'
 
@@ -399,6 +404,39 @@ Semantics: null predicate
 
     - Returns: ``*i.base() == 0;``
 
+.. _`serialization`:
 
-:copyright:     Thorsten Ottosen 2004-2005. 
+Semantics: serialization
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+All containers can be serialized by means of
+`Boost.Serialization`__. For an overview, see
+`Serialization of Pointer Containers`_.
+
+.. __: ../../serialization/index.html
+.. _`Serialization of Pointer Containers`: reference.html#serialization
+
+- ``template< class Archive > void save( Archive& ar, const unsigned version ) const;``
+    
+    - Effects: Saves the container to the archive.
+  
+    - Remarks: This function is called automatically be stream operators in
+      Boost.Serialization
+	
+- ``template< class Archive >
+  void load( Archive& ar, const unsigned version );``	
+
+    - Effects: Clears the container and then loads a new container from the archive.
+  
+    - Remarks: This function is called automatically be stream operators in
+      Boost.Serialization
+	     
+    - Exception safety: Basic guarantee
+
+
+.. raw:: html 
+
+        <hr>
+
+:Copyright:     Thorsten Ottosen 2004-2006. 
 

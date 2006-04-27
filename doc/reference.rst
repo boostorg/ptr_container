@@ -39,10 +39,11 @@ the `Clone Allocator <reference.html#the-clone-allocator-concept>`_ concept.
   - `ptr_multiset <ptr_multiset.html>`_
   - `ptr_map <ptr_map.html>`_
   - `ptr_multimap <ptr_multimap.html>`_
-- `Map iterator operations`_  
+- `Serialization`_  
 - `Indirected functions <indirect_fun.html>`_  
 - `Class nullable`_     
-- `Exception classes`_         
+- `Exception classes`_   
+- `Disabling the use of exceptions`_      
 
 
 
@@ -101,7 +102,7 @@ of the two functions is given:
 
 
 Notice that this implementation  makes normal Copy Constructible classes are automatically 
-Clonable unless ``operator new()`` or ``operator delete()`` are hidden.  
+Clonable unless ``operator new()`` or ``operator delete()`` are hidden. 
 
 The two functions represent a layer of indirection which is necessary to support 
 classes that are not Copy Constructible by default.  Notice that the implementation 
@@ -110,6 +111,8 @@ relies on argument-dependent lookup (ADL) to find the right version of
 the function is the boost namespace, but it can be placed together with 
 the rest of the interface of the class.  If you are implementing a class 
 inline in headers, remember to forward declare the functions.
+ 
+**Warning: We are considering to remove the default implementation above. Therefore always make sure that you overload the functions for your types and do not rely on the defaults in any way.**  
 
 The Clone Allocator concept
 +++++++++++++++++++++++++++
@@ -273,31 +276,97 @@ Associative containers
 .. _ptr_map: ptr_map.html
 .. _ptr_multimap: ptr_multimap.html
 
+Serialization
++++++++++++++
 
-Map iterator operations
-+++++++++++++++++++++++
+As of version 1.34.0 of Boost, the library support
+serialization as defined by `Boost.Serialization`__.
 
-The map iterators are a bit different compared to the normal ones.  The 
-reason is that it is a bit clumsy to access the key and the mapped object 
-through i->first and i->second, and one tends to forget what is what. 
-Moreover, and more importantly, we also want to hide the pointer as much as possibble.
-The new style can be illustrated with a small example:: 
+.. __: ../../serialization/index.html
 
-    typedef ptr_map<string,int> map_t;
-    map_t  m;
-    m[ "foo" ] = 4; // insert pair
-    m[ "bar" ] = 5; // ditto
-    ...
-    for( map_t::iterator i = m.begin(); i != m.end(); ++i )
-    {
-             *i += 42; // add 42 to each value
-             cout << "value=" << *i << ", key=" << i.key() << "n";
-    } 
-    
-So the difference from the normal map iterator is that 
+Of course, for serialization to work it is required
+that the stored type itself is serializable. For maps, both
+the key type and the mapped type must be serializable.
 
-- ``operator*()`` returns a reference to the mapped object (normally it returns a reference to a ``std::pair``, and
-- that the key can be accessed through the ``key()`` function. 
+When dealing with serialization (and serialization of polymophic objects in particular), 
+pay special attention to these parts of Boost.Serialization:
+
+1. Output/saving requires a const-reference::
+
+	//
+	// serialization helper: we can't save a non-const object
+	// 
+	template< class T >
+	inline T const& as_const( T const& r )
+	{
+	    return r;
+	}
+	...
+	Container cont;
+
+	std::ofstream ofs("filename");
+	boost::archive::text_oarchive oa(ofs);
+	oa << as_const(cont);
+
+   See `Compile time trap when saving a non-const value`__ for
+   details.
+   
+.. __: ../../serialization/doc/rationale.html#trap
+
+2. Derived classes need to call ``base_object()`` function::
+
+	struct Derived : Base
+	{
+	    template< class Archive >
+	    void serialize( Archive& ar, const unsigned int version )
+	    {
+		ar & boost::serialization::base_object<Base>( *this );
+		...
+	    }	
+	};
+	
+   For details, see `Derived Classes`_.
+   
+.. _`Derived Classes`: ../../serialization/doc/tutorial.html#derivedclasses
+	    
+3. You need to use ``BOOST_CLASS_EXPORT`` to register the
+   derived classes in your class hierarchy::
+  
+	BOOST_CLASS_EXPORT( Derived )
+
+   See `Export Key`__ and `Object Tracking`_
+   for details.
+   
+.. __: ../../serialization/doc/traits.html#export 
+.. _`Object Tracking`: ../../serialization/doc/special.html
+	
+Remember these three issues and it will save you a lot of trouble.
+
+..
+	Map iterator operations
+	+++++++++++++++++++++++
+	
+	The map iterators are a bit different compared to the normal ones.  The 
+	reason is that it is a bit clumsy to access the key and the mapped object 
+	through i->first and i->second, and one tends to forget what is what. 
+	Moreover, and more importantly, we also want to hide the pointer as much as possibble.
+	The new style can be illustrated with a small example:: 
+	
+	    typedef ptr_map<string,int> map_t;
+	    map_t  m;
+	    m[ "foo" ] = 4; // insert pair
+	    m[ "bar" ] = 5; // ditto
+	    ...
+	    for( map_t::iterator i = m.begin(); i != m.end(); ++i )
+	    {
+		     *i += 42; // add 42 to each value
+		     cout << "value=" << *i << ", key=" << i.key() << "n";
+	    } 
+	    
+	So the difference from the normal map iterator is that 
+	
+	- ``operator*()`` returns a reference to the mapped object (normally it returns a reference to a ``std::pair``, and
+	- that the key can be accessed through the ``key()`` function. 
 
 Class ``nullable``
 ++++++++++++++++++
@@ -351,9 +420,35 @@ hierarchy looks as follows::
                 bad_pointer( const char* what );
             };
         }
+	
+Disabling the use of exceptions
++++++++++++++++++++++++++++++++
+
+As of version 1.34.0 of Boost, the library allows you to disable exceptions
+completely. This means the library is more fit for domains where exceptions
+are not used. Furthermore, it also speeds up a operations a little. Instead
+of throwing an exception, the library simply calls `BOOST_ASSERT`__.
+
+.. __: ../../utility/assert.html
+
+To diable exceptions, simly define this macro before including any header::
+
+	#define BOOST_PTR_CONTAINER_NO_EXCEPTIONS 1
+	#include <boost/ptr_container/ptr_vector.hpp>
+	
+It is, however, recommended that you define the macro on the command-line, so
+you are absolutely certain that all headers are compiled the same way. Otherwise
+you might end up breaking the One Definition Rule.
+
+If ``BOOST_NO_EXCEPTIONS`` is defined, then ``BOOST_PTR_CONTAINER_NO_EXCEPTIONS``
+is also defined.
+
+.. raw:: html 
+
+        <hr>
 
 - `home <ptr_container.html>`_
 
 
-:copyright:     Thorsten Ottosen 2004-2005. 
+:Copyright:     Thorsten Ottosen 2004-2006. 
 

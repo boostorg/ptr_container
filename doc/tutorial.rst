@@ -373,5 +373,5 @@ That is all; now you have learned all the basics!
   - `examples <examples.html>`_
 
 
-:copyright:     Thorsten Ottosen 2004-2005. 
+:Copyright:     Thorsten Ottosen 2004-2006. 
 

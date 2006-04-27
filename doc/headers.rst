@@ -50,5 +50,5 @@ Library headers
 - `reference <reference.html>`_
 
 
-:copyright:     Thorsten Ottosen 2004-2005.
+:Copyright:     Thorsten Ottosen 2004-2006.
 

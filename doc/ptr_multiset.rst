@@ -61,5 +61,5 @@ to store the pointers.
 - Using ``nullable<T>`` as ``Key`` is meaningless and not allowed
 
 
-:copyright:     Thorsten Ottosen 2004-2005. 
+:Copyright:     Thorsten Ottosen 2004-2006. 
 

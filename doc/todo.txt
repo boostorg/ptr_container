@@ -1,33 +1,20 @@
 
-2. add new ptr_map typedefs
-
-3. remove ptr_map iterators description
-
-4. ptr_map definition
-
 5. small usage exmaple with each class
 
-7. update concept for clonable: typeid(x) == typeid(clone)
-
 8. use static class hierarchy to ease navigation
-
-9. guidelines on good OO programming:
-
-   1. base classes abstract
-  
-   2. make virtuals private
-
-   3. derive from boost::copyable
-
-   4. don't allow nulls if you can avoid it, Null Object
 
 10. update tutorial to show boost::assign link
 
 11. should find_key() be added to ptr_map?
 
-12. serialization
+12. add 
 
-13. no exceptions
+.. raw:: html 
+
+        <hr>
+
+to the buttom of each file
+
 
 
 

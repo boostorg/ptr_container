@@ -43,6 +43,16 @@ __ ptr_container.html#map-iterator-operations
             >
             class ptr_multimap_adapter 
             {
+    	    public: // `typedefs`_
+		typedef VoidPtrMap::key_type key_type;
+		typedef T*                   mapped_type;
+		typedef T&                   mapped_reference;
+		typedef const T&             const_mapped_reference;
+		typedef ...                  value_type;
+		typedef ...                  reference;
+		typedef ...                  const_reference;
+		typedef ...                  pointer;
+		typedef ...                  const_pointer;  
                 
             public: // `modifiers`_         
                 iterator  insert( key_type& k, T* x ); 
@@ -63,6 +73,36 @@ __ ptr_container.html#map-iterator-operations
             
 Semantics
 ---------
+
+. _`typedefs`:
+
+Semantics: typedefs
+^^^^^^^^^^^^^^^^^^^
+
+The following types are implementation defined::
+
+	typedef ... value_type;
+	typedef ... reference;
+	typedef ... const_reference;
+	typedef ... pointer;
+	typedef ... const_pointer;  
+        
+However, the structure of the type mimics ``std::pair`` s.t. one
+can use ``first`` and ``second`` members. The reference-types
+are not real references and the pointer-types are not real pointers.
+However, one may still write ::
+
+    map_type::value_type       a_value      = *m.begin();
+    a_value.second->foo();
+    map_type::reference        a_reference  = *m.begin();
+    a_reference.second->foo();
+    map_type::const_reference  a_creference = *const_begin(m);
+    map_type::pointer          a_pointer    = &*m.begin();
+    a_pointer->second->foo();
+    map_type::const_pointer    a_cpointer   = &*const_begin(m);
+
+The difference compared to ``std::map<Key,T*>`` is that constness
+is propagated to the pointer (that is, to ``second``). 	
 
 .. _`modifiers`:
 
@@ -144,5 +184,5 @@ Semantics: pointer container requirements
    - Exception safety: Basic guarantee
  
 
-:copyright:     Thorsten Ottosen 2004-2005. 
+:Copyright:     Thorsten Ottosen 2004-2006. 
 

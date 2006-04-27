@@ -421,5 +421,5 @@ contain any nulls*.
     - Exception safety: nothrow guarantee (the behavior is undefined if the comparison operator throws)
 
     
-:copyright:     Thorsten Ottosen 2004-2005. 
+:Copyright:     Thorsten Ottosen 2004-2006. 
     

@@ -220,5 +220,5 @@ Semantics: algorithms
 .. _`pointer container requirements`:
 
 
-:copyright:     Thorsten Ottosen 2004-2005. 
+:Copyright:     Thorsten Ottosen 2004-2006. 
 

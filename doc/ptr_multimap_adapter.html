@@ -318,6 +318,16 @@ namespace boost
     &gt;
     class ptr_multimap_adapter 
     {
+    public: // <a class="reference" href="#typedefs">typedefs</a>
+        typedef VoidPtrMap::key_type key_type;
+        typedef T*                   mapped_type;
+        typedef T&amp;                   mapped_reference;
+        typedef const T&amp;             const_mapped_reference;
+        typedef ...                  value_type;
+        typedef ...                  reference;
+        typedef ...                  const_reference;
+        typedef ...                  pointer;
+        typedef ...                  const_pointer;  
         
     public: // <a class="reference" href="#modifiers">modifiers</a>         
         iterator  insert( key_type&amp; k, T* x ); 
@@ -338,6 +348,34 @@ namespace boost
 </div>
 <div class="section">
 <h1><a id="semantics" name="semantics">Semantics</a></h1>
+<p>. <span class="target" id="typedefs">typedefs</span>:</p>
+<div class="section">
+<h2><a id="semantics-typedefs" name="semantics-typedefs">Semantics: typedefs</a></h2>
+<p>The following types are implementation defined:</p>
+<pre class="literal-block">
+typedef ... value_type;
+typedef ... reference;
+typedef ... const_reference;
+typedef ... pointer;
+typedef ... const_pointer;  
+</pre>
+<p>However, the structure of the type mimics <tt class="docutils literal"><span class="pre">std::pair</span></tt> s.t. one
+can use <tt class="docutils literal"><span class="pre">first</span></tt> and <tt class="docutils literal"><span class="pre">second</span></tt> members. The reference-types
+are not real references and the pointer-types are not real pointers.
+However, one may still write</p>
+<pre class="literal-block">
+map_type::value_type       a_value      = *m.begin();
+a_value.second-&gt;foo();
+map_type::reference        a_reference  = *m.begin();
+a_reference.second-&gt;foo();
+map_type::const_reference  a_creference = *const_begin(m);
+map_type::pointer          a_pointer    = &amp;*m.begin();
+a_pointer-&gt;second-&gt;foo();
+map_type::const_pointer    a_cpointer   = &amp;*const_begin(m);
+</pre>
+<p>The difference compared to <tt class="docutils literal"><span class="pre">std::map&lt;Key,T*&gt;</span></tt> is that constness
+is propagated to the pointer (that is, to <tt class="docutils literal"><span class="pre">second</span></tt>).</p>
+</div>
 <div class="section">
 <h2><a id="semantics-modifiers" name="semantics-modifiers"><span id="modifiers"></span>Semantics: modifiers</a></h2>
 <ul>
@@ -420,7 +458,7 @@ namespace boost
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">copyright:</th><td class="field-body">Thorsten Ottosen 2004-2005.</td>
+<tr class="field"><th class="field-name">Copyright:</th><td class="field-body">Thorsten Ottosen 2004-2006.</td>
 </tr>
 </tbody>
 </table>

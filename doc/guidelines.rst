@@ -8,6 +8,8 @@
 Usage Guidelines
 ================
 
+.. contents:: :local: 
+
 Choosing the right container
 ----------------------------
 
@@ -68,6 +70,21 @@ You might also want to read the following articles:
 2. Make virtual functions private and provide a non-virtual public forwarding function
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+In code::
+
+	class Polymorphic
+	{
+	private:
+	    virtual int do_foo() = 0;
+	    
+        public:
+	    int foo()
+	    {
+	        return do_foo();
+	    }
+	    ...
+	};	
+	
 This has the following advantages:
 
 	a. It makes sure all calls to the virtual function always goes through one place in your code
@@ -85,20 +102,50 @@ You might also want to read Herb Sutter's article `Virtuality`__.
 
 Having an abstact base class prevents slicing when the base class is involved, but
 it does not prevent it for classes further down the hierarchy. This is where
-`boost::noncopyable`__ is handy to use.
+`boost::noncopyable`__ is handy to use::
+
+	class Polymorphic : boost::noncopyable
+	{
+	  ...
+	};
 
 .. __ : http://www.boost.org/libs/utility/utility.htm#Class_noncopyable
 
 
+4. Avoid null-pointers in containers (if possible)
+++++++++++++++++++++++++++++++++++++++++++++++++++
 
-4. don't allow nulls if you can avoid it, Null Object
-++++++++++++++++++++++++++++++++++++++++++++++++++++++
+By default the pointer containers do not allow you to store null-pointer in them.
+As you might know, this behavior can be changed explicitly with the use
+of `boost::nullable`__. 
 
+The primary reason to avoid null-pointers 
+is that you have to check for null-pointers every time the container is
+used. This extra checking is easy to forget, and it is somewhat contradictory to
+the spirit of OO where you replace special cases with dynamic dispatch.
+
+.. __: reference.html#class-nullable
+
+Often, however, you need to place some special object in the container because you
+do not have enough information to construct a full object. In that case
+you might be able to use the Null Object pattern which simply dictates that
+you implement virtual functions from the abstract base-class 
+as empty functions or with dummy return values. This means that
+your OO-code still does not need to worry about null-pointers.
+
+You might want to read
+
+- Kevlin Henney's `Null Object - Something for Nothing`__
+
+.. __: http://www.two-sdg.demon.co.uk/curbralan/papers/europlop/NullObject.pdf
+
+Finally you might end up in a situation where not even the Null Object can help
+you. That is when you truly need ``container< nullable<T> >``. 
 
 **Navigate:**
 
 - `home <ptr_container.html>`_
 - `reference <reference.html>`_
 
-:copyright:     Thorsten Ottosen 2004-2005. 
+:Copyright:     Thorsten Ottosen 2004-2006. 
 

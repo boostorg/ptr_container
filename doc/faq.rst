@@ -99,5 +99,5 @@ The most elegant design is to use the Null-Object Pattern where one basically ma
 class with dummy implementations of the virtual functions. See `[13] <ptr_container.html#references>`_ for details.
 
 
-:copyright:     Thorsten Ottosen 2004-2005. 
+:Copyright:     Thorsten Ottosen 2004-2006. 
 
