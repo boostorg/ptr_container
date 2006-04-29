@@ -299,7 +299,7 @@ ul.auto-toc {
 <li><a class="reference" href="#when-instantiating-a-pointer-container-with-a-type-t-is-t-then-allowed-to-be-incomplete-at-that-point" id="id8" name="id8">When instantiating a pointer container with a type <tt class="docutils literal"><span class="pre">T</span></tt>, is <tt class="docutils literal"><span class="pre">T</span></tt> then allowed to be incomplete at that point?</a></li>
 <li><a class="reference" href="#why-do-iterator-range-inserts-give-the-strong-exception-safety-guarantee" id="id9" name="id9">Why do iterator-range inserts give the strong exception-safety guarantee?</a></li>
 <li><a class="reference" href="#what-is-the-polymorphic-class-problem" id="id10" name="id10">What is the polymorphic class problem?</a></li>
-<li><a class="reference" href="#are-the-pointer-containers-faster-and-do-they-have-a-better-memory-footprint-than-a-container-of-pointer-pointers" id="id11" name="id11">Are the pointer containers faster and do they have a better memory  footprint than a container of pointer pointers?</a></li>
+<li><a class="reference" href="#are-the-pointer-containers-faster-and-do-they-have-a-better-memory-footprint-than-a-container-of-smart-pointers" id="id11" name="id11">Are the pointer containers faster and do they have a better memory  footprint than a container of smart pointers?</a></li>
 <li><a class="reference" href="#when-the-stored-pointers-cannot-be-0-how-do-i-allow-this-empty-behavior-anyway" id="id12" name="id12">When the stored pointers cannot be <tt class="docutils literal"><span class="pre">0</span></tt>, how do I allow this &quot;empty&quot; behavior anyway?</a></li>
 </ul>
 </div>
@@ -358,12 +358,12 @@ compared to cloning N objects.</p>
 <p>The problem refers to the relatively troublesome way C++ supports Object 
 Oriented programming in connection with containers of pointers to 
 polymorphic objects.  In a language without garbage collection, you end up 
-using either a container of pointer pointers or a container that takes 
+using either a container of smart pointers or a container that takes 
 ownership of the pointers.  The hard part is to find a safe, fast and 
 elegant solution.</p>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id11" id="are-the-pointer-containers-faster-and-do-they-have-a-better-memory-footprint-than-a-container-of-pointer-pointers" name="are-the-pointer-containers-faster-and-do-they-have-a-better-memory-footprint-than-a-container-of-pointer-pointers">Are the pointer containers faster and do they have a better memory  footprint than a container of pointer pointers?</a></h1>
+<h1><a class="toc-backref" href="#id11" id="are-the-pointer-containers-faster-and-do-they-have-a-better-memory-footprint-than-a-container-of-smart-pointers" name="are-the-pointer-containers-faster-and-do-they-have-a-better-memory-footprint-than-a-container-of-smart-pointers">Are the pointer containers faster and do they have a better memory  footprint than a container of smart pointers?</a></h1>
 <p>The short answer is yes: they are faster and they do use less memory; in 
 fact, they are the only way to obtain the zero-overhead hallmark of C++.  
 Smart pointers usually have one word or more of memory overhead per 

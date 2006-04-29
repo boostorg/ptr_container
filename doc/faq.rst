@@ -75,11 +75,11 @@ What is the _`polymorphic class problem`?
 The problem refers to the relatively troublesome way C++ supports Object 
 Oriented programming in connection with containers of pointers to 
 polymorphic objects.  In a language without garbage collection, you end up 
-using either a container of pointer pointers or a container that takes 
+using either a container of smart pointers or a container that takes 
 ownership of the pointers.  The hard part is to find a safe, fast and 
 elegant solution.  
 
-Are the pointer containers faster and do they have a better memory  footprint than a container of pointer pointers?  
+Are the pointer containers faster and do they have a better memory  footprint than a container of smart pointers?  
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 The short answer is yes: they are faster and they do use less memory; in 

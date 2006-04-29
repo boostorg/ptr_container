@@ -9,7 +9,7 @@ Reference
 =========
 
 The documentation is divided into a an explanation for 
-each container. All the common interface is explained only once,
+each container. When containers have the same interface, that common interface is explained only once,
 but links are always provided to more relevant information.
 Please make sure you understand 
 the `Clonable <reference.html#the-clonable-concept>`_ concept and 
@@ -98,7 +98,7 @@ the containers does not even require the stored type to be Clonable.
 
 ===================================== =========================== ======================================================================================== ===================================
      **Expression**                          **Type**                  **Semantics**                                                                        **Postcondition**
-   ``new_clone(a);``                         ``T*``                  Allocate a new object that can be considered equivalent to the ``a`` object            ``typeid(new_clone(a)) == typeid(a)``
+   ``new_clone(a);``                         ``T*``                  Allocate a new object that can be considered equivalent to the ``a`` object            ``typeid(*new_clone(a)) == typeid(a)``
    ``delete_clone(ptr);``                    ``void``                Deallocate an object previously allocated with ``allocate_clone()``. Must not throw 
 ===================================== =========================== ======================================================================================== ===================================
 
@@ -168,11 +168,14 @@ Clone Allocator requirements
 
 **Valid expressions**
 
-====================================================== ============= ======================================================================================================================================================
-     **Expression**                                      **Type**                              **Semantics**
-  ``CloneAllocator::allocate_clone(a);``                   ``T*``                          Allocate a new object that can be considered equivalent to the ``a`` object      
-  ``CloneAllocator::deallocate_clone(ptr);``              ``void``                          Deallocate an object previously allocated with ``CloneAllocator::allocate_clone()`` or a compatible allocator. Must not throw.
-====================================================== ============= ======================================================================================================================================================
+============================================== ============= ============================================================================= =============================================================
+     **Expression**                              **Type**                              **Semantics**                                                                  **Postcondition**
+  ``CloneAllocator::allocate_clone(a);``          ``T*``             Allocate a new object that can be considered equivalent to the 
+                                                                     ``a`` object                                                          ``typeid(*CloneAllocator::allocate_clone(a)) == typeid(a)``
+  ``CloneAllocator::deallocate_clone(ptr);``     ``void``            Deallocate an object previously allocated with 
+                                                                     ``CloneAllocator::allocate_clone()`` or a compatible allocator. 
+								     Must not throw.
+============================================== ============= ============================================================================= =============================================================
 
 
 
@@ -239,9 +242,9 @@ container.
         };
     }
 
-**See also**
+.. **See also**
 
-- `Changing the clone allocator <examples.html#changing-the-clone-allocator>`_
+  - `Changing the clone allocator <examples.html#changing-the-clone-allocator>`_
 
 Class hierarchy
 +++++++++++++++
@@ -425,8 +428,9 @@ interface (except for ``is_null()`` functions). For example, it
 does not make sense to do ::
 
     boost::ptr_vector< boost::nullable<T> > vec;
-    vec.push_back( new boost::nullable<T> ); // no no
-    boost::nullable<T>& ref = vec[0];        // also no no
+    vec.push_back( 0 );                      // ok
+    vec.push_back( new boost::nullable<T> ); // no no!
+    boost::nullable<T>& ref = vec[0];        // also no no!
 
 Exception classes
 +++++++++++++++++
@@ -482,6 +486,8 @@ is also defined.
 .. raw:: html 
 
         <hr>
+
+**Navigate:**
 
 - `home <ptr_container.html>`_
 

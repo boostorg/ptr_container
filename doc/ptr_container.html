@@ -351,7 +351,7 @@ and designs for dealing with OO specific problems</p>
 <h1><a id="motivation" name="motivation">Motivation</a></h1>
 <p>Whenever a programmer wants to have a container of pointers to
 heap-allocated objects, there is usually only one exception-safe way:
-to make a container of pointer pointers like <tt class="docutils literal"><span class="pre">boost::shared_ptr</span></tt>.
+to make a container of smart pointers like <a class="reference" href="../../smart_ptr/shared_ptr.htm">boost::shared_ptr</a>
 This approach is suboptimal if</p>
 <ol class="arabic simple">
 <li>the stored objects are not shared, but owned exclusively, or</li>
@@ -381,11 +381,11 @@ to solve the so-called
 </ol>
 <!--  -->
 <ol class="arabic simple" start="4">
-<li>No memory-overhead as containers of smart pointers can have (see <a class="footnote-reference" href="#id22" id="id2" name="id2">[11]</a> and <a class="footnote-reference" href="#id24" id="id3" name="id3">[12]</a>).</li>
+<li>No memory-overhead as containers of smart pointers can have (see <a class="footnote-reference" href="#id23" id="id2" name="id2">[11]</a> and <a class="footnote-reference" href="#id25" id="id3" name="id3">[12]</a>).</li>
 </ol>
 <!--  -->
 <ol class="arabic simple" start="5">
-<li>Usually faster than using containers of smart pointers (see <a class="footnote-reference" href="#id22" id="id4" name="id4">[11]</a> and <a class="footnote-reference" href="#id24" id="id5" name="id5">[12]</a>).</li>
+<li>Usually faster than using containers of smart pointers (see <a class="footnote-reference" href="#id23" id="id4" name="id4">[11]</a> and <a class="footnote-reference" href="#id25" id="id5" name="id5">[12]</a>).</li>
 </ol>
 <!--  -->
 <ol class="arabic simple" start="6">
@@ -473,86 +473,86 @@ which is used internally</li>
 </div>
 <div class="section">
 <h1><a id="references" name="references">References</a></h1>
-<table class="docutils footnote" frame="void" id="id7" rules="none">
+<table class="docutils footnote" frame="void" id="id8" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a name="id7">[1]</a></td><td>Matt Austern: <a class="reference" href="http://www.cuj.com/documents/s=7990/cujcexp1910austern/">&quot;The Standard Librarian: Containers of Pointers&quot;</a> , C/C++ Users Journal Experts Forum.</td></tr>
+<tr><td class="label"><a name="id8">[1]</a></td><td>Matt Austern: <a class="reference" href="http://www.cuj.com/documents/s=7990/cujcexp1910austern/">&quot;The Standard Librarian: Containers of Pointers&quot;</a> , C/C++ Users Journal Experts Forum.</td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id9" rules="none">
+<table class="docutils footnote" frame="void" id="id10" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a name="id9">[2]</a></td><td>Bjarne Stroustrup, &quot;The C++ Programming Language&quot;, <a class="reference" href="http://www.research.att.com/~bs/3rd_safe.pdf">Appendix E: &quot;Standard-Library Exception Safety&quot;</a></td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id11" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a name="id11">[3]</a></td><td>Herb Sutter, &quot;Exceptional C++&quot;.</td></tr>
+<tr><td class="label"><a name="id10">[2]</a></td><td>Bjarne Stroustrup, &quot;The C++ Programming Language&quot;, <a class="reference" href="http://www.research.att.com/~bs/3rd_safe.pdf">Appendix E: &quot;Standard-Library Exception Safety&quot;</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id12" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a name="id12">[4]</a></td><td>Herb Sutter, &quot;More Exceptional C++&quot;.</td></tr>
+<tr><td class="label"><a name="id12">[3]</a></td><td>Herb Sutter, &quot;Exceptional C++&quot;.</td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id13" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a name="id13">[5]</a></td><td>Kevlin Henney: <a class="reference" href="http://www.cuj.com/documents/s=7986/cujcexp2002henney/henney.htm">&quot;From Mechanism to Method: The Safe Stacking of Cats&quot;</a> , C++ Experts Forum, February 2002.</td></tr>
+<tr><td class="label"><a name="id13">[4]</a></td><td>Herb Sutter, &quot;More Exceptional C++&quot;.</td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id15" rules="none">
+<table class="docutils footnote" frame="void" id="id14" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a name="id15">[6]</a></td><td>Some of the few earlier attempts of pointer containers I have seen are the rather interesting <a class="reference" href="http://www.ntllib.org/asp.html">NTL</a> and the 
-<a class="reference" href="http://ootips.org/yonat/4dev/pointainer.h">pointainer</a>. 
-As of this writing both libraries are not exceptions-safe and can leak.</td></tr>
+<tr><td class="label"><a name="id14">[5]</a></td><td>Kevlin Henney: <a class="reference" href="http://www.cuj.com/documents/s=7986/cujcexp2002henney/henney.htm">&quot;From Mechanism to Method: The Safe Stacking of Cats&quot;</a> , C++ Experts Forum, February 2002.</td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id16" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a name="id16">[7]</a></td><td>INTERNATIONAL STANDARD, Programming languages --- C++, ISO/IEC 14882, 1998. See section 23 in particular.</td></tr>
+<tr><td class="label"><a name="id16">[6]</a></td><td>Some of the few earlier attempts of pointer containers I have seen are the rather interesting <a class="reference" href="http://www.ntllib.org/asp.html">NTL</a> and the 
+<a class="reference" href="http://ootips.org/yonat/4dev/pointainer.h">pointainer</a>. 
+As of this writing both libraries are not exceptions-safe and can leak.</td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id17" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a name="id17">[8]</a></td><td>C++ Standard Library Closed Issues List (Revision 27), 
+<tr><td class="label"><a name="id17">[7]</a></td><td>INTERNATIONAL STANDARD, Programming languages --- C++, ISO/IEC 14882, 1998. See section 23 in particular.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id18" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a name="id18">[8]</a></td><td>C++ Standard Library Closed Issues List (Revision 27), 
 Item 218, <a class="reference" href="http://anubis.dkuug.dk/jtc1/sc22/wg21/docs/lwg-closed.html#218">Algorithms do not use binary predicate objects for default comparisons</a>.</td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id19" rules="none">
+<table class="docutils footnote" frame="void" id="id20" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a name="id19">[9]</a></td><td>C++ Standard Library Active Issues List (Revision 27), 
+<tr><td class="label"><a name="id20">[9]</a></td><td>C++ Standard Library Active Issues List (Revision 27), 
 Item 226, <a class="reference" href="http://gcc.gnu.org/onlinedocs/libstdc++/ext/lwg-active.html#226">User supplied specializations or overloads of namespace std function templates</a>.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id21" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a name="id21">[10]</a></td><td>Harald Nowak, &quot;A remove_if for vector&quot;, C/C++ Users Journal, July 2001.</td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id22" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a name="id22">[11]</a></td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id4">2</a>)</em> Boost smart pointer <a class="reference" href="http://www.boost.org/libs/smart_ptr/smarttests.htm">timings</a></td></tr>
+<tr><td class="label"><a name="id22">[10]</a></td><td>Harald Nowak, &quot;A remove_if for vector&quot;, C/C++ Users Journal, July 2001.</td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id24" rules="none">
+<table class="docutils footnote" frame="void" id="id23" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a name="id24">[12]</a></td><td><em>(<a class="fn-backref" href="#id3">1</a>, <a class="fn-backref" href="#id5">2</a>)</em> <a class="reference" href="http://www.ntllib.org/asp.html">NTL</a>: Array vs std::vector and boost::shared_ptr</td></tr>
+<tr><td class="label"><a name="id23">[11]</a></td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id4">2</a>)</em> Boost smart pointer <a class="reference" href="http://www.boost.org/libs/smart_ptr/smarttests.htm">timings</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id25" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a name="id25">[13]</a></td><td>Kevlin Henney, <a class="reference" href="http://www.two-sdg.demon.co.uk/curbralan/papers/europlop/NullObject.pdf">Null Object</a>, 2002.</td></tr>
+<tr><td class="label"><a name="id25">[12]</a></td><td><em>(<a class="fn-backref" href="#id3">1</a>, <a class="fn-backref" href="#id5">2</a>)</em> <a class="reference" href="http://www.ntllib.org/asp.html">NTL</a>: Array vs std::vector and boost::shared_ptr</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id26" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a name="id26">[13]</a></td><td>Kevlin Henney, <a class="reference" href="http://www.two-sdg.demon.co.uk/curbralan/papers/europlop/NullObject.pdf">Null Object</a>, 2002.</td></tr>
 </tbody>
 </table>
 <hr><table class="docutils field-list" frame="void" rules="none">

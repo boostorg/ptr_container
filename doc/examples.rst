@@ -142,10 +142,9 @@ We can also transfer objects from ``ptr_container<Derived>`` to ``ptr_container<
 8. Selected test files 
 ++++++++++++++++++++++
 
-:`tutorial.cpp <tutorial_example.html>`_: A larger example with lots of comments.
 :incomplete_type_test.cpp_: Shows how to implement the Composite pattern.
 :simple_test.cpp_: Shows how the usage of pointer container compares with a 
-  container of pointer pointers
+  container of smart pointers
 :view_example.cpp_: Shows how to use a pointer container as a view into other container
 :tree_test.cpp_: Shows how to make a tree-structure
 :array_test.cpp_: Shows how to make an n-ary tree 
@@ -157,16 +156,17 @@ We can also transfer objects from ``ptr_container<Derived>`` to ``ptr_container<
 .. _array_test.cpp : ../test/ptr_array.cpp
 
 
+
+9. A large example
+++++++++++++++++++
+
+This examples shows many of the most common
+features at work. The example provide lots of comments.
+
+.. raw:: html
+	:file: tutorial_example.html
+
 ..
-		9. A large example
-		++++++++++++++++++
-
-		This examples shows many of the most common
-		features at work.
-
-		.. raw:: html
-			:file: tut1.html
-
 		10. Changing the Clone Allocator
 		++++++++++++++++++++++++++++++++
 

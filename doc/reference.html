@@ -291,7 +291,7 @@ ul.auto-toc {
 <h1 class="title"><img alt="Boost" src="boost.png" /> Pointer Container Library</h1>
 <h2 class="subtitle" id="reference">Reference</h2>
 <p>The documentation is divided into a an explanation for 
-each container. All the common interface is explained only once,
+each container. When containers have the same interface, that common interface is explained only once,
 but links are always provided to more relevant information.
 Please make sure you understand 
 the <a class="reference" href="reference.html#the-clonable-concept">Clonable</a> concept and 
@@ -402,7 +402,7 @@ the containers does not even require the stored type to be Clonable.</p>
 <tr><td><tt class="docutils literal"><span class="pre">new_clone(a);</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">T*</span></tt></td>
 <td>Allocate a new object that can be considered equivalent to the <tt class="docutils literal"><span class="pre">a</span></tt> object</td>
-<td><tt class="docutils literal"><span class="pre">typeid(new_clone(a))</span> <span class="pre">==</span> <span class="pre">typeid(a)</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">typeid(*new_clone(a))</span> <span class="pre">==</span> <span class="pre">typeid(a)</span></tt></td>
 </tr>
 <tr><td><tt class="docutils literal"><span class="pre">delete_clone(ptr);</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">void</span></tt></td>
@@ -485,22 +485,29 @@ users to apply custom allocators/deallocators for the cloned objects.</p>
 <p><strong>Valid expressions</strong></p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="25%" />
-<col width="6%" />
-<col width="69%" />
+<col width="23%" />
+<col width="7%" />
+<col width="39%" />
+<col width="31%" />
 </colgroup>
 <tbody valign="top">
 <tr><td><strong>Expression</strong></td>
 <td><strong>Type</strong></td>
 <td><strong>Semantics</strong></td>
+<td><strong>Postcondition</strong></td>
 </tr>
 <tr><td><tt class="docutils literal"><span class="pre">CloneAllocator::allocate_clone(a);</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">T*</span></tt></td>
-<td>Allocate a new object that can be considered equivalent to the <tt class="docutils literal"><span class="pre">a</span></tt> object</td>
+<td>Allocate a new object that can be considered equivalent to the
+<tt class="docutils literal"><span class="pre">a</span></tt> object</td>
+<td><tt class="docutils literal"><span class="pre">typeid(*CloneAllocator::allocate_clone(a))</span> <span class="pre">==</span> <span class="pre">typeid(a)</span></tt></td>
 </tr>
 <tr><td><tt class="docutils literal"><span class="pre">CloneAllocator::deallocate_clone(ptr);</span></tt></td>
 <td><tt class="docutils literal"><span class="pre">void</span></tt></td>
-<td>Deallocate an object previously allocated with <tt class="docutils literal"><span class="pre">CloneAllocator::allocate_clone()</span></tt> or a compatible allocator. Must not throw.</td>
+<td>Deallocate an object previously allocated with
+<tt class="docutils literal"><span class="pre">CloneAllocator::allocate_clone()</span></tt> or a compatible allocator.
+Must not throw.</td>
+<td>&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -559,10 +566,9 @@ namespace boost
     };
 }
 </pre>
-<p><strong>See also</strong></p>
-<ul class="simple">
-<li><a class="reference" href="examples.html#changing-the-clone-allocator">Changing the clone allocator</a></li>
-</ul>
+<!-- **See also**
+
+- `Changing the clone allocator <examples.html#changing-the-clone-allocator>`_ -->
 </div>
 </div>
 <div class="section">
@@ -741,8 +747,9 @@ interface (except for <tt class="docutils literal"><span class="pre">is_null()</
 does not make sense to do</p>
 <pre class="literal-block">
 boost::ptr_vector&lt; boost::nullable&lt;T&gt; &gt; vec;
-vec.push_back( new boost::nullable&lt;T&gt; ); // no no
-boost::nullable&lt;T&gt;&amp; ref = vec[0];        // also no no
+vec.push_back( 0 );                      // ok
+vec.push_back( new boost::nullable&lt;T&gt; ); // no no!
+boost::nullable&lt;T&gt;&amp; ref = vec[0];        // also no no!
 </pre>
 </div>
 <div class="section">
@@ -789,7 +796,8 @@ you are absolutely certain that all headers are compiled the same way. Otherwise
 you might end up breaking the One Definition Rule.</p>
 <p>If <tt class="docutils literal"><span class="pre">BOOST_NO_EXCEPTIONS</span></tt> is defined, then <tt class="docutils literal"><span class="pre">BOOST_PTR_CONTAINER_NO_EXCEPTIONS</span></tt>
 is also defined.</p>
-<hr><ul class="simple">
+<hr><p><strong>Navigate:</strong></p>
+<ul class="simple">
 <li><a class="reference" href="ptr_container.html">home</a></li>
 </ul>
 <hr><table class="docutils field-list" frame="void" rules="none">

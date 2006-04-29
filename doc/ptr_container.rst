@@ -82,7 +82,7 @@ Motivation
 
 Whenever a programmer wants to have a container of pointers to
 heap-allocated objects, there is usually only one exception-safe way:
-to make a container of pointer pointers like ``boost::shared_ptr``.
+to make a container of smart pointers like `boost::shared_ptr <../../smart_ptr/shared_ptr.htm>`_
 This approach is suboptimal if
 
 1. the stored objects are not shared, but owned exclusively, or
