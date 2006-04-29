@@ -4,7 +4,7 @@
  
 .. |Boost| image:: boost.png
 
-===
+
 FAQ
 ===
 
@@ -98,6 +98,9 @@ Storing a null-pointer among a list of pointers does not fit well into the Objec
 The most elegant design is to use the Null-Object Pattern where one basically makes a concrete
 class with dummy implementations of the virtual functions. See `[13] <ptr_container.html#references>`_ for details.
 
+.. raw:: html 
+
+        <hr>
 
 :Copyright:     Thorsten Ottosen 2004-2006. 
 

@@ -10,7 +10,7 @@ Reference
 
 The documentation is divided into a an explanation for 
 each container. All the common interface is explained only once,
-but links are always provided to the relevant links.
+but links are always provided to more relevant information.
 Please make sure you understand 
 the `Clonable <reference.html#the-clonable-concept>`_ concept and 
 the `Clone Allocator <reference.html#the-clone-allocator-concept>`_ concept. 
@@ -18,33 +18,59 @@ the `Clone Allocator <reference.html#the-clone-allocator-concept>`_ concept.
 - `Conventions <conventions.html>`_
 - `The Clonable concept`_
 - `The Clone Allocator concept`_
-- Class `reversible_ptr_container <reversible_ptr_container.html>`_
-- Class `associative_ptr_container <associative_ptr_container.html>`_
-- `Pointer container adapters`_
 
-  - `ptr_sequence_adapter <ptr_sequence_adapter.html>`_
-  - `ptr_set_adapter <ptr_set_adapter.html>`_
-  - `ptr_multiset_adapter <ptr_multiset_adapter.html>`_
-  - `ptr_map_adapter <ptr_map_adapter.html>`_
-  - `ptr_multimap_adapter <ptr_multimap_adapter.html>`_    
-- `Sequence containers`_
+- `Class hierarchy`_:
 
-  - `ptr_vector <ptr_vector.html>`_
-  - `ptr_deque <ptr_deque.html>`_
-  - `ptr_list <ptr_list.html>`_
-  - `ptr_array <ptr_array.html>`_
-- `Associative containers`_
+  - `reversible_ptr_container <reversible_ptr_container.html>`_
 
-  - `ptr_set <ptr_set.html>`_
-  - `ptr_multiset <ptr_multiset.html>`_
-  - `ptr_map <ptr_map.html>`_
-  - `ptr_multimap <ptr_multimap.html>`_
+    - `ptr_sequence_adapter <ptr_sequence_adapter.html>`_
+
+      - `ptr_vector <ptr_vector.html>`_
+      - `ptr_list <ptr_list.html>`_ 
+      - `ptr_deque <ptr_deque.html>`_
+      - `ptr_array <ptr_array.html>`_
+    
+    - `associative_ptr_container <associative_ptr_container.html>`_ 
+  
+      - `ptr_set_adapter <ptr_set_adapter.html>`_
+      - `ptr_multiset_adapter <ptr_multiset_adapter.html>`_
+      - `ptr_map_adapter <ptr_map_adapter.html>`_
+      - `ptr_multi_map_adapter <ptr_multimap_adapter.html>`_
+
+        - `ptr_set <ptr_set.html>`_
+        - `ptr_multi_set <ptr_multiset.html>`_ 
+        - `ptr_map <ptr_map.html>`_
+        - `ptr_multimap <ptr_multimap.html>`_
+      
 - `Serialization`_  
 - `Indirected functions <indirect_fun.html>`_  
 - `Class nullable`_     
 - `Exception classes`_   
 - `Disabling the use of exceptions`_      
 
+
+..
+	- Class `reversible_ptr_container <reversible_ptr_container.html>`_
+	- Class `associative_ptr_container <associative_ptr_container.html>`_
+	- `Pointer container adapters`_
+	
+	  - `ptr_sequence_adapter <ptr_sequence_adapter.html>`_
+	  - `ptr_set_adapter <ptr_set_adapter.html>`_
+	  - `ptr_multiset_adapter <ptr_multiset_adapter.html>`_
+	  - `ptr_map_adapter <ptr_map_adapter.html>`_
+	  - `ptr_multimap_adapter <ptr_multimap_adapter.html>`_    
+	- `Sequence containers`_
+	
+	  - `ptr_vector <ptr_vector.html>`_
+	  - `ptr_deque <ptr_deque.html>`_
+	  - `ptr_list <ptr_list.html>`_
+	  - `ptr_array <ptr_array.html>`_
+	- `Associative containers`_
+	
+	  - `ptr_set <ptr_set.html>`_
+	  - `ptr_multiset <ptr_multiset.html>`_
+	  - `ptr_map <ptr_map.html>`_
+	  - `ptr_multimap <ptr_multimap.html>`_
 
 
 
@@ -217,8 +243,16 @@ container.
 
 - `Changing the clone allocator <examples.html#changing-the-clone-allocator>`_
 
-Pointer container adapters
-++++++++++++++++++++++++++
+Class hierarchy
++++++++++++++++
+
+The library consists of the following types of classes:
+
+1. Pointer container adapters
+
+..
+
+2. Pointer containers
 
 The pointer container adapters are used when you
 want to make a pointer container starting from
@@ -229,52 +263,54 @@ to use your map class as a basis for a new
 pointer container.
 
 The library provides an adapter for each type
-of standard container:
+of standard container highlighted as links below:
 
-- ptr_sequence_adapter_
-- ptr_set_adapter_
-- ptr_multiset_adapter_
-- ptr_map_adapter_
-- ptr_multimap_adapter_
+- ``reversible_ptr_container``
 
-.. _ptr_sequence_adapter: ptr_sequence_adapter.html
-.. _ptr_set_adapter: ptr_set_adapter.html
-.. _ptr_multiset_adapter: ptr_multiset_adapter.html
-.. _ptr_map_adapter: ptr_map_adapter.html
-.. _ptr_multimap_adapter: ptr_multimap_adapter.html
+  - `ptr_sequence_adapter <ptr_sequence_adapter.html>`_
 
+    - ``ptr_vector``
+    - ``ptr_list``
+    - ``ptr_deque``
+    - ``ptr_array`` 
+    
+  - ``associative_ptr_container``
+ 
+    - `ptr_set_adapter <ptr_set_adapter.html>`_
+    - `ptr_multiset_adapter <ptr_multiset_adapter.html>`_
+    - `ptr_map_adapter <ptr_map_adapter.html>`_
+    - `ptr_multi_map_adapter <ptr_multimap_adapter.html>`_
 
-Pointer containers
-++++++++++++++++++
+      - ``ptr_set``
+      - ``ptr_multi_set``
+      - ``ptr_map``
+      - ``ptr_multimap``
+
 
 The pointer containers of this library are all built using
-the `pointer container adapters`_. There is a pointer container
-for each type of "normal" standard container:
+the adapters. There is a pointer container
+for each type of "normal" standard container highlighted as links below.
 
-Sequence containers
--------------------
+- ``reversible_ptr_container``
 
-    - ptr_vector_
-    - ptr_deque_
-    - ptr_list_
-    - ptr_array_
+  - ``ptr_sequence_adapter``
 
-Associative containers
-----------------------
+    - `ptr_vector <ptr_vector.html>`_
+    - `ptr_list <ptr_list.html>`_ 
+    - `ptr_deque <ptr_deque.html>`_
+    - `ptr_array <ptr_array.html>`_
+    
+  - ``associative_ptr_container`` 
+  
+    - ``ptr_set_adapter``
+    - ``ptr_multiset_adapter``
+    - ``ptr_map_adapter``
+    - ``ptr_multi_map_adapter`` 
 
-    - ptr_set_
-    - ptr_multiset_
-    - ptr_map_
-    - ptr_multimap_   
-     
-.. _ptr_vector: ptr_vector.html
-.. _ptr_deque: ptr_deque.html
-.. _ptr_list: ptr_list.html
-.. _ptr_array: ptr_array.html
-.. _ptr_set: ptr_set.html
-.. _ptr_multiset: ptr_multiset.html
-.. _ptr_map: ptr_map.html
-.. _ptr_multimap: ptr_multimap.html
+      - `ptr_set <ptr_set.html>`_
+      - `ptr_multi_set <ptr_multiset.html>`_ 
+      - `ptr_map <ptr_map.html>`_
+      - `ptr_multimap <ptr_multimap.html>`_
 
 Serialization
 +++++++++++++
@@ -449,6 +485,9 @@ is also defined.
 
 - `home <ptr_container.html>`_
 
+.. raw:: html 
+
+        <hr>
 
 :Copyright:     Thorsten Ottosen 2004-2006. 
 

@@ -10,6 +10,29 @@ Class ``reversible_ptr_container``
 This class is not a real class that can be found in the library. 
 Its purpose is to present the general interface of all the pointer containers.
 
+**Hierarchy:**
+
+- ``reversible_ptr_container``
+
+  - `ptr_sequence_adapter <ptr_sequence_adapter.html>`_
+
+    - `ptr_vector <ptr_vector.html>`_
+    - `ptr_list <ptr_list.html>`_ 
+    - `ptr_deque <ptr_deque.html>`_
+    - `ptr_array <ptr_array.html>`_
+    
+  - `associative_ptr_container <associative_ptr_container.html>`_ 
+  
+    - `ptr_set_adapter <ptr_set_adapter.html>`_
+    - `ptr_multiset_adapter <ptr_multiset_adapter.html>`_
+    - `ptr_map_adapter <ptr_map_adapter.html>`_
+    - `ptr_multi_map_adapter <ptr_multimap_adapter.html>`_
+
+      - `ptr_set <ptr_set.html>`_
+      - `ptr_multi_set <ptr_multiset.html>`_ 
+      - `ptr_map <ptr_map.html>`_
+      - `ptr_multimap <ptr_multimap.html>`_
+
 **Navigate:**
 
 - `home <ptr_container.html>`_
@@ -172,12 +195,15 @@ functionality unless you know what you are doing*).
 - ``typedef ... auto_type``
 
 This declaration hides a pointer pointer type. You can rely on the following
-operations::
+operations 
+
+.. parsed-literal:: 
 
     T* operator->() const;
     T& operator*() const;
     T* release();
     ~auto_type();
+    operator *implementation-defined bool*\ ();
 
 The destructor will delete the stored object. It might help to
 think it is just an ``std::auto_ptr<T>``.

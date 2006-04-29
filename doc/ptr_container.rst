@@ -8,9 +8,9 @@
 
 
 :Authors:       Thorsten Ottosen
-:Contact:       nesotto@cs.aau.dk
-:organizations: `Department of Computer Science`_, Aalborg University, and `Dezide Aps`_
-:date:          3rd of May 2005
+:Contact:       nesotto@cs.aau.dk or tottosen@dezide.com
+:Organizations: `Department of Computer Science`_, Aalborg University, and `Dezide Aps`_
+:date:          29th of April 2006
 :Copyright:     Thorsten Ottosen 2004-2006. Use, modification and distribution is subject to the Boost Software License, Version 1.0 (see LICENSE_1_0.txt__).
 
 __ http://www.boost.org/LICENSE_1_0.txt
@@ -35,6 +35,7 @@ and designs for dealing with OO specific problems
 * Examples_
 * `Library headers`_
 * FAQ_
+* `Upgrading from Boost v. 1.33.*`_
 * Acknowledgements_
 * References_
 
@@ -85,7 +86,10 @@ to make a container of pointer pointers like ``boost::shared_ptr``.
 This approach is suboptimal if
 
 1. the stored objects are not shared, but owned exclusively, or
-2. the overhead implied by pointer pointers is inappropriate
+
+..
+
+2. the overhead implied by smart pointers is inappropriate
 
 This library therefore provides standard-like containers that are for storing
 heap-allocated or `cloned <reference.html#the-clonable-concept>`_ objects (or in case of a map, the mapped object must be
@@ -99,18 +103,87 @@ to solve the so-called
 The advantages of pointer containers are
 
 1. Exception-safe pointer storage and manipulation.
+
+..
+
 2. Notational convenience compared to the use of containers of pointers.
+
+..
+
 3. Can be used for types that are neither Assignable nor Copy Constructible.
-4. No memory-overhead as containers of pointer pointers can have (see [11]_ and [12]_).
-5. Usually faster than using containers of pointer pointers (see [11]_ and [12]_).
+
+..
+
+4. No memory-overhead as containers of smart pointers can have (see [11]_ and [12]_).
+
+..
+
+5. Usually faster than using containers of smart pointers (see [11]_ and [12]_).
+
+..
+
 6. The interface is slightly changed towards the domain of pointers
    instead of relying on the normal value-based interface. For example,
    now it is possible for ``pop_back()`` to return the removed element.
-7. Propagates constness s.t. one cannot modify the objects via a ``const_iterator``
+   
+.. 
+ 
+7. Propagates constness s.t. one cannot modify the objects via a ``const_iterator``.
+
+..
+
+8. Built-in support for deep-copy semantics via the `The Clobable Concept`__
+
+.. __: reference.html#the-clonable-concept
 
 The disadvantages are
 
 1. Less flexible than containers of smart pointers like `boost::shared_ptr <../../smart_ptr/shared_ptr.htm>`_
+
+When you do need shared semantics, this library is not what you need.
+
+====================================
+ Upgrading from Boost v. ``1.33.*``
+====================================
+
+If you upgrade from one of these versions of Boost, then there has been one
+major interface change: map iterators now mimic iterators from ``std::map``.
+Previously you may have written ::
+
+  for( boost::ptr_map<std::string,T>::iterator i = m.begin(), e = m.end();
+       i != e; ++i )
+  {
+    std::cout << "key:" << i.key();
+    std::cout << "value:" << *i;
+    i->foo(); // call T::foo()
+  }
+  
+and this now needs to be converted into ::
+       
+  for( boost::ptr_map<std::string,T>::iterator i = m.begin(), e = m.end();
+       i != e; ++i )
+  {
+    std::cout << "key:" << i->first;
+    std::cout << "value:" << *i->second;
+    i->second->foo(); // call T::foo()
+  }
+
+Apart from the above change, the library now also introduces
+
+- ``std::auto_ptr<T>`` overloads::
+
+	std::auto_ptr<T> p( new T );
+	container.push_back( p );
+
+- Derived-to-Base conversion in ``transfer()``::
+
+	boost::ptr_vector<Base>  vec;
+	boost::ptr_list<Derived> list;
+	...
+	vec.transfer( vec.begin(), list ); // now ok
+
+Also note that `Boost.Assign <../../assign/index.html>`_ introduces better support
+for pointer containers. 
 
 ================
 Acknowledgements
@@ -180,5 +253,9 @@ __ http://www.two-sdg.demon.co.uk/curbralan/papers/europlop/NullObject.pdf
 .. _pointainer: http://ootips.org/yonat/4dev/pointainer.h 
 
 
-:Copyright:     Thorsten Ottosen 2004-2006. 
+.. raw:: html 
+
+        <hr>
+
+:Copyright: Thorsten Ottosen 2004-2006. 
 

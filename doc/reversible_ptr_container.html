@@ -293,6 +293,32 @@ ul.auto-toc {
 <h1><a id="class-reversible-ptr-container" name="class-reversible-ptr-container">Class <tt class="docutils literal"><span class="pre">reversible_ptr_container</span></tt></a></h1>
 <p>This class is not a real class that can be found in the library. 
 Its purpose is to present the general interface of all the pointer containers.</p>
+<p><strong>Hierarchy:</strong></p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">reversible_ptr_container</span></tt><ul>
+<li><a class="reference" href="ptr_sequence_adapter.html">ptr_sequence_adapter</a><ul>
+<li><a class="reference" href="ptr_vector.html">ptr_vector</a></li>
+<li><a class="reference" href="ptr_list.html">ptr_list</a></li>
+<li><a class="reference" href="ptr_deque.html">ptr_deque</a></li>
+<li><a class="reference" href="ptr_array.html">ptr_array</a></li>
+</ul>
+</li>
+<li><a class="reference" href="associative_ptr_container.html">associative_ptr_container</a><ul>
+<li><a class="reference" href="ptr_set_adapter.html">ptr_set_adapter</a></li>
+<li><a class="reference" href="ptr_multiset_adapter.html">ptr_multiset_adapter</a></li>
+<li><a class="reference" href="ptr_map_adapter.html">ptr_map_adapter</a></li>
+<li><a class="reference" href="ptr_multimap_adapter.html">ptr_multi_map_adapter</a><ul>
+<li><a class="reference" href="ptr_set.html">ptr_set</a></li>
+<li><a class="reference" href="ptr_multiset.html">ptr_multi_set</a></li>
+<li><a class="reference" href="ptr_map.html">ptr_map</a></li>
+<li><a class="reference" href="ptr_multimap.html">ptr_multimap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <p><strong>Navigate:</strong></p>
 <ul class="simple">
 <li><a class="reference" href="ptr_container.html">home</a></li>
@@ -451,12 +477,13 @@ functionality unless you know what you are doing</em>).</p>
 <li><tt class="docutils literal"><span class="pre">typedef</span> <span class="pre">...</span> <span class="pre">auto_type</span></tt></li>
 </ul>
 <p>This declaration hides a pointer pointer type. You can rely on the following
-operations:</p>
+operations</p>
 <pre class="literal-block">
 T* operator-&gt;() const;
 T&amp; operator*() const;
 T* release();
 ~auto_type();
+operator <em>implementation-defined bool</em>();
 </pre>
 <p>The destructor will delete the stored object. It might help to
 think it is just an <tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt>.</p>

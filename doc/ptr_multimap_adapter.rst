@@ -11,17 +11,21 @@ This class is used to build custom pointer containers with
 an underlying multimap-like container. The interface of the class is an extension
 of the interface from ``associative_ptr_container``.
 
-**See also:**
+**Hierarchy:**
 
-- reversible_ptr_container_
-- associative_ptr_container_
-- ptr_multimap_
-- `new map iterators`__
+- `reversible_ptr_container <reversible_ptr_container.html>`_
 
-.. _reversible_ptr_container: reversible_ptr_container.html 
-.. _associative_ptr_container: associative_ptr_container.html
-.. _ptr_multimap: ptr_multimap.html
-__ ptr_container.html#map-iterator-operations
+  - `associative_ptr_container <associative_ptr_container.html>`_
+  
+    - `ptr_set_adapter <ptr_set_adapter.html>`_
+    - `ptr_multiset_adapter <ptr_multiset_adapter.html>`_
+    - `ptr_map_adapter <ptr_map_adapter.html>`_
+    - ``ptr_multi_map_adapter``
+
+      - `ptr_set <ptr_set.html>`_
+      - `ptr_multi_set <ptr_multiset.html>`_ 
+      - `ptr_map <ptr_map.html>`_
+      - `ptr_multimap <ptr_multimap.html>`_
 
 **Navigate:**
 
@@ -102,7 +106,7 @@ However, one may still write ::
     map_type::const_pointer    a_cpointer   = &*const_begin(m);
 
 The difference compared to ``std::map<Key,T*>`` is that constness
-is propagated to the pointer (that is, to ``second``). 	
+is propagated to the pointer (that is, to ``second``) in ``const_itertor``. 	
 
 .. _`modifiers`:
 
@@ -183,6 +187,9 @@ Semantics: pointer container requirements
 
    - Exception safety: Basic guarantee
  
+.. raw:: html 
+
+        <hr>
 
 :Copyright:     Thorsten Ottosen 2004-2006. 
 

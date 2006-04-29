@@ -10,12 +10,22 @@ Class ``ptr_multimap``
 A ``ptr_multimap<Key,T>`` is a pointer container that uses an underlying ``std::multimap<Key,void*>``
 to store the pointers.
 
-**See also:**
 
-- reversible_ptr_container_
-- associative_ptr_container_
-- ptr_multimap_adapter_
-- `new map iterators <reference.html#map-iterator-operations>`_
+**Hierarchy:**
+
+- `reversible_ptr_container <reversible_ptr_container.html>`_
+
+  - `associative_ptr_container <associative_ptr_container.html>`_
+  
+    - `ptr_set_adapter <ptr_set_adapter.html>`_
+    - `ptr_multiset_adapter <ptr_multiset_adapter.html>`_
+    - `ptr_map_adapter <ptr_map_adapter.html>`_
+    - `ptr_multi_map_adapter <ptr_multimap_adapter.html>`_
+
+      - `ptr_set <ptr_set.html>`_
+      - `ptr_multi_set <ptr_multiset.html>`_ 
+      - `ptr_map <ptr_map.html>`_
+      - ``ptr_multimap``
 
 **Navigate:**
 

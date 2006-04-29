@@ -292,7 +292,7 @@ ul.auto-toc {
 <h2 class="subtitle" id="reference">Reference</h2>
 <p>The documentation is divided into a an explanation for 
 each container. All the common interface is explained only once,
-but links are always provided to the relevant links.
+but links are always provided to more relevant information.
 Please make sure you understand 
 the <a class="reference" href="reference.html#the-clonable-concept">Clonable</a> concept and 
 the <a class="reference" href="reference.html#the-clone-allocator-concept">Clone Allocator</a> concept.</p>
@@ -300,28 +300,30 @@ the <a class="reference" href="reference.html#the-clone-allocator-concept">Clone
 <li><a class="reference" href="conventions.html">Conventions</a></li>
 <li><a class="reference" href="#the-clonable-concept">The Clonable concept</a></li>
 <li><a class="reference" href="#the-clone-allocator-concept">The Clone Allocator concept</a></li>
-<li>Class <a class="reference" href="reversible_ptr_container.html">reversible_ptr_container</a></li>
-<li>Class <a class="reference" href="associative_ptr_container.html">associative_ptr_container</a></li>
-<li><a class="reference" href="#pointer-container-adapters">Pointer container adapters</a><ul>
-<li><a class="reference" href="ptr_sequence_adapter.html">ptr_sequence_adapter</a></li>
-<li><a class="reference" href="ptr_set_adapter.html">ptr_set_adapter</a></li>
-<li><a class="reference" href="ptr_multiset_adapter.html">ptr_multiset_adapter</a></li>
-<li><a class="reference" href="ptr_map_adapter.html">ptr_map_adapter</a></li>
-<li><a class="reference" href="ptr_multimap_adapter.html">ptr_multimap_adapter</a></li>
-</ul>
-</li>
-<li><a class="reference" href="#sequence-containers">Sequence containers</a><ul>
+<li><a class="reference" href="#class-hierarchy">Class hierarchy</a>:<ul>
+<li><a class="reference" href="reversible_ptr_container.html">reversible_ptr_container</a><ul>
+<li><a class="reference" href="ptr_sequence_adapter.html">ptr_sequence_adapter</a><ul>
 <li><a class="reference" href="ptr_vector.html">ptr_vector</a></li>
-<li><a class="reference" href="ptr_deque.html">ptr_deque</a></li>
 <li><a class="reference" href="ptr_list.html">ptr_list</a></li>
+<li><a class="reference" href="ptr_deque.html">ptr_deque</a></li>
 <li><a class="reference" href="ptr_array.html">ptr_array</a></li>
 </ul>
 </li>
-<li><a class="reference" href="#associative-containers">Associative containers</a><ul>
+<li><a class="reference" href="associative_ptr_container.html">associative_ptr_container</a><ul>
+<li><a class="reference" href="ptr_set_adapter.html">ptr_set_adapter</a></li>
+<li><a class="reference" href="ptr_multiset_adapter.html">ptr_multiset_adapter</a></li>
+<li><a class="reference" href="ptr_map_adapter.html">ptr_map_adapter</a></li>
+<li><a class="reference" href="ptr_multimap_adapter.html">ptr_multi_map_adapter</a><ul>
 <li><a class="reference" href="ptr_set.html">ptr_set</a></li>
-<li><a class="reference" href="ptr_multiset.html">ptr_multiset</a></li>
+<li><a class="reference" href="ptr_multiset.html">ptr_multi_set</a></li>
 <li><a class="reference" href="ptr_map.html">ptr_map</a></li>
 <li><a class="reference" href="ptr_multimap.html">ptr_multimap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference" href="#serialization">Serialization</a></li>
@@ -330,6 +332,27 @@ the <a class="reference" href="reference.html#the-clone-allocator-concept">Clone
 <li><a class="reference" href="#exception-classes">Exception classes</a></li>
 <li><a class="reference" href="#disabling-the-use-of-exceptions">Disabling the use of exceptions</a></li>
 </ul>
+<!-- - Class `reversible_ptr_container <reversible_ptr_container.html>`_
+- Class `associative_ptr_container <associative_ptr_container.html>`_
+- `Pointer container adapters`_
+
+  - `ptr_sequence_adapter <ptr_sequence_adapter.html>`_
+  - `ptr_set_adapter <ptr_set_adapter.html>`_
+  - `ptr_multiset_adapter <ptr_multiset_adapter.html>`_
+  - `ptr_map_adapter <ptr_map_adapter.html>`_
+  - `ptr_multimap_adapter <ptr_multimap_adapter.html>`_    
+- `Sequence containers`_
+
+  - `ptr_vector <ptr_vector.html>`_
+  - `ptr_deque <ptr_deque.html>`_
+  - `ptr_list <ptr_list.html>`_
+  - `ptr_array <ptr_array.html>`_
+- `Associative containers`_
+
+  - `ptr_set <ptr_set.html>`_
+  - `ptr_multiset <ptr_multiset.html>`_
+  - `ptr_map <ptr_map.html>`_
+  - `ptr_multimap <ptr_multimap.html>`_ -->
 <div class="section">
 <h1><a id="the-clonable-concept" name="the-clonable-concept">The Clonable concept</a></h1>
 <p><strong>Refinement of</strong></p>
@@ -543,7 +566,15 @@ namespace boost
 </div>
 </div>
 <div class="section">
-<h1><a id="pointer-container-adapters" name="pointer-container-adapters">Pointer container adapters</a></h1>
+<h1><a id="class-hierarchy" name="class-hierarchy">Class hierarchy</a></h1>
+<p>The library consists of the following types of classes:</p>
+<ol class="arabic simple">
+<li>Pointer container adapters</li>
+</ol>
+<!--  -->
+<ol class="arabic simple" start="2">
+<li>Pointer containers</li>
+</ol>
 <p>The pointer container adapters are used when you
 want to make a pointer container starting from
 your own &quot;normal&quot; container. For example, you
@@ -552,42 +583,60 @@ in some way; the adapter class then allows you
 to use your map class as a basis for a new
 pointer container.</p>
 <p>The library provides an adapter for each type
-of standard container:</p>
+of standard container highlighted as links below:</p>
 <ul class="simple">
-<li><a class="reference" href="ptr_sequence_adapter.html">ptr_sequence_adapter</a></li>
+<li><tt class="docutils literal"><span class="pre">reversible_ptr_container</span></tt><ul>
+<li><a class="reference" href="ptr_sequence_adapter.html">ptr_sequence_adapter</a><ul>
+<li><tt class="docutils literal"><span class="pre">ptr_vector</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ptr_list</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ptr_deque</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ptr_array</span></tt></li>
+</ul>
+</li>
+<li><tt class="docutils literal"><span class="pre">associative_ptr_container</span></tt><ul>
 <li><a class="reference" href="ptr_set_adapter.html">ptr_set_adapter</a></li>
 <li><a class="reference" href="ptr_multiset_adapter.html">ptr_multiset_adapter</a></li>
 <li><a class="reference" href="ptr_map_adapter.html">ptr_map_adapter</a></li>
-<li><a class="reference" href="ptr_multimap_adapter.html">ptr_multimap_adapter</a></li>
+<li><a class="reference" href="ptr_multimap_adapter.html">ptr_multi_map_adapter</a><ul>
+<li><tt class="docutils literal"><span class="pre">ptr_set</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ptr_multi_set</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ptr_map</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ptr_multimap</span></tt></li>
 </ul>
-</div>
-<div class="section">
-<h1><a id="pointer-containers" name="pointer-containers">Pointer containers</a></h1>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <p>The pointer containers of this library are all built using
-the <a class="reference" href="#pointer-container-adapters">pointer container adapters</a>. There is a pointer container
-for each type of &quot;normal&quot; standard container:</p>
-<div class="section">
-<h2><a id="sequence-containers" name="sequence-containers">Sequence containers</a></h2>
-<blockquote>
+the adapters. There is a pointer container
+for each type of &quot;normal&quot; standard container highlighted as links below.</p>
 <ul class="simple">
+<li><tt class="docutils literal"><span class="pre">reversible_ptr_container</span></tt><ul>
+<li><tt class="docutils literal"><span class="pre">ptr_sequence_adapter</span></tt><ul>
 <li><a class="reference" href="ptr_vector.html">ptr_vector</a></li>
-<li><a class="reference" href="ptr_deque.html">ptr_deque</a></li>
 <li><a class="reference" href="ptr_list.html">ptr_list</a></li>
+<li><a class="reference" href="ptr_deque.html">ptr_deque</a></li>
 <li><a class="reference" href="ptr_array.html">ptr_array</a></li>
 </ul>
-</blockquote>
-</div>
-<div class="section">
-<h2><a id="associative-containers" name="associative-containers">Associative containers</a></h2>
-<blockquote>
-<ul class="simple">
+</li>
+<li><tt class="docutils literal"><span class="pre">associative_ptr_container</span></tt><ul>
+<li><tt class="docutils literal"><span class="pre">ptr_set_adapter</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ptr_multiset_adapter</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ptr_map_adapter</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ptr_multi_map_adapter</span></tt><ul>
 <li><a class="reference" href="ptr_set.html">ptr_set</a></li>
-<li><a class="reference" href="ptr_multiset.html">ptr_multiset</a></li>
+<li><a class="reference" href="ptr_multiset.html">ptr_multi_set</a></li>
 <li><a class="reference" href="ptr_map.html">ptr_map</a></li>
 <li><a class="reference" href="ptr_multimap.html">ptr_multimap</a></li>
 </ul>
-</blockquote>
-</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </div>
 <div class="section">
 <h1><a id="serialization" name="serialization">Serialization</a></h1>
@@ -743,7 +792,7 @@ is also defined.</p>
 <hr><ul class="simple">
 <li><a class="reference" href="ptr_container.html">home</a></li>
 </ul>
-<table class="docutils field-list" frame="void" rules="none">
+<hr><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">

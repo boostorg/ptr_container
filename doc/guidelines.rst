@@ -142,10 +142,18 @@ You might want to read
 Finally you might end up in a situation where not even the Null Object can help
 you. That is when you truly need ``container< nullable<T> >``. 
 
+.. raw:: html 
+
+        <hr>
+
 **Navigate:**
 
 - `home <ptr_container.html>`_
 - `reference <reference.html>`_
+
+.. raw:: html 
+
+        <hr>
 
 :Copyright:     Thorsten Ottosen 2004-2006. 
 
