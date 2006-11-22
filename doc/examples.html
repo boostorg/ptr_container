@@ -293,19 +293,19 @@ ul.auto-toc {
 <p>Some examples are given here and in the accompanying test files:</p>
 <div class="contents local topic">
 <ul class="simple">
-<li><a class="reference" href="#null-pointers-cannot-be-stored-in-the-containers" id="id1" name="id1">1. Null pointers cannot be stored in the containers</a></li>
-<li><a class="reference" href="#iterators-and-other-operations-return-indirected-values" id="id2" name="id2">2. Iterators and other operations return indirected values</a></li>
-<li><a class="reference" href="#copy-semantics-of-pointer-containers" id="id3" name="id3">3. Copy-semantics of pointer containers</a></li>
-<li><a class="reference" href="#making-a-non-copyable-type-clonable" id="id4" name="id4">4. Making a non-copyable type Clonable</a></li>
-<li><a class="reference" href="#objects-are-cloned-before-insertion-inserted-pointers-are-owned-by-the-container" id="id5" name="id5">5. Objects are cloned before insertion, inserted pointers are owned by the container</a></li>
-<li><a class="reference" href="#transferring-ownership-of-a-single-element" id="id6" name="id6">6. Transferring ownership of a single element</a></li>
-<li><a class="reference" href="#transferring-ownership-of-pointers-between-different-pointer-containers" id="id7" name="id7">7. Transferring ownership of pointers between different pointer containers</a></li>
-<li><a class="reference" href="#selected-test-files" id="id8" name="id8">8. Selected test files</a></li>
-<li><a class="reference" href="#a-large-example" id="id9" name="id9">9. A large example</a></li>
+<li><a class="reference" href="#null-pointers-cannot-be-stored-in-the-containers" id="id2" name="id2">1. Null pointers cannot be stored in the containers</a></li>
+<li><a class="reference" href="#iterators-and-other-operations-return-indirected-values" id="id3" name="id3">2. Iterators and other operations return indirected values</a></li>
+<li><a class="reference" href="#copy-semantics-of-pointer-containers" id="id4" name="id4">3. Copy-semantics of pointer containers</a></li>
+<li><a class="reference" href="#making-a-non-copyable-type-clonable" id="id5" name="id5">4. Making a non-copyable type Clonable</a></li>
+<li><a class="reference" href="#objects-are-cloned-before-insertion-inserted-pointers-are-owned-by-the-container" id="id6" name="id6">5. Objects are cloned before insertion, inserted pointers are owned by the container</a></li>
+<li><a class="reference" href="#transferring-ownership-of-a-single-element" id="id7" name="id7">6. Transferring ownership of a single element</a></li>
+<li><a class="reference" href="#transferring-ownership-of-pointers-between-different-pointer-containers" id="id8" name="id8">7. Transferring ownership of pointers between different pointer containers</a></li>
+<li><a class="reference" href="#selected-test-files" id="id9" name="id9">8. Selected test files</a></li>
+<li><a class="reference" href="#a-large-example" id="id10" name="id10">9. A large example</a></li>
 </ul>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id1" id="null-pointers-cannot-be-stored-in-the-containers" name="null-pointers-cannot-be-stored-in-the-containers"><span id="example-1"></span>1. Null pointers cannot be stored in the containers</a></h1>
+<h1><a class="toc-backref" href="#id2" id="null-pointers-cannot-be-stored-in-the-containers" name="null-pointers-cannot-be-stored-in-the-containers"><span id="example-1"></span>1. Null pointers cannot be stored in the containers</a></h1>
 <pre class="literal-block">
 my_container.push_back( 0 );            // throws bad_ptr 
 my_container.replace( an_iterator, 0 ); // throws bad_ptr
@@ -315,7 +315,7 @@ my_container.push_back( p );            // throws bad_ptr
 </pre>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id2" id="iterators-and-other-operations-return-indirected-values" name="iterators-and-other-operations-return-indirected-values"><span id="example-2"></span>2. Iterators and other operations return indirected values</a></h1>
+<h1><a class="toc-backref" href="#id3" id="iterators-and-other-operations-return-indirected-values" name="iterators-and-other-operations-return-indirected-values"><span id="example-2"></span>2. Iterators and other operations return indirected values</a></h1>
 <pre class="literal-block">
 ptr_vector&lt;X&gt; pvec; 
 std::vector&lt;X*&gt; vec;
@@ -328,7 +328,7 @@ pvec.front()  = X();     // no indirection needed
 </pre>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id3" id="copy-semantics-of-pointer-containers" name="copy-semantics-of-pointer-containers"><span id="example-3"></span>3. Copy-semantics of pointer containers</a></h1>
+<h1><a class="toc-backref" href="#id4" id="copy-semantics-of-pointer-containers" name="copy-semantics-of-pointer-containers"><span id="example-3"></span>3. Copy-semantics of pointer containers</a></h1>
 <pre class="literal-block">
 ptr_vector&lt;T&gt; vec1; 
 ...
@@ -340,7 +340,7 @@ ptr_vector&lt;T&gt; vec3( vec1 );         // compile time error: copy-constructo
 </pre>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id4" id="making-a-non-copyable-type-clonable" name="making-a-non-copyable-type-clonable"><span id="example-4"></span>4. Making a non-copyable type Clonable</a></h1>
+<h1><a class="toc-backref" href="#id5" id="making-a-non-copyable-type-clonable" name="making-a-non-copyable-type-clonable"><span id="example-4"></span>4. Making a non-copyable type Clonable</a></h1>
 <pre class="literal-block">
  // a class that has no normal copy semantics
 class X : boost::noncopyable { public: X* clone() const; ... };
@@ -357,7 +357,7 @@ vec2.insert( vec2.end(), vec1.begin(), vec1.end() ); // inserting always means i
 </pre>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id5" id="objects-are-cloned-before-insertion-inserted-pointers-are-owned-by-the-container" name="objects-are-cloned-before-insertion-inserted-pointers-are-owned-by-the-container"><span id="example-5"></span>5. Objects are cloned before insertion, inserted pointers are owned by the container</a></h1>
+<h1><a class="toc-backref" href="#id6" id="objects-are-cloned-before-insertion-inserted-pointers-are-owned-by-the-container" name="objects-are-cloned-before-insertion-inserted-pointers-are-owned-by-the-container"><span id="example-5"></span>5. Objects are cloned before insertion, inserted pointers are owned by the container</a></h1>
 <pre class="literal-block">
 class X { ... };                     // assume 'X' is Clonable 
 X x;                                 // and 'X' can be stack-allocated 
@@ -371,7 +371,7 @@ BOOST_ASSERT( p.get() == 0 );
 </pre>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id6" id="transferring-ownership-of-a-single-element" name="transferring-ownership-of-a-single-element"><span id="example-6"></span>6. Transferring ownership of a single element</a></h1>
+<h1><a class="toc-backref" href="#id7" id="transferring-ownership-of-a-single-element" name="transferring-ownership-of-a-single-element"><span id="example-6"></span>6. Transferring ownership of a single element</a></h1>
 <pre class="literal-block">
 ptr_deque&lt;T&gt;                    deq; 
 typedef ptr_deque&lt;T&gt;::auto_type auto_type;
@@ -386,7 +386,7 @@ deq.push_back( ptr.release() );                  // give ownership back to the c
 </pre>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id7" id="transferring-ownership-of-pointers-between-different-pointer-containers" name="transferring-ownership-of-pointers-between-different-pointer-containers"><span id="example-7"></span>7. Transferring ownership of pointers between different pointer containers</a></h1>
+<h1><a class="toc-backref" href="#id8" id="transferring-ownership-of-pointers-between-different-pointer-containers" name="transferring-ownership-of-pointers-between-different-pointer-containers"><span id="example-7"></span>7. Transferring ownership of pointers between different pointer containers</a></h1>
 <pre class="literal-block">
 ptr_list&lt;X&gt; list; ptr_vector&lt;X&gt; vec;
 ...
@@ -399,7 +399,7 @@ vec.transfer( vec.end(), list.begin(), list.end(), list ); // put all the lists 
 <p>We can also transfer objects from <tt class="docutils literal"><span class="pre">ptr_container&lt;Derived&gt;</span></tt> to <tt class="docutils literal"><span class="pre">ptr_container&lt;Base</span></tt> without any problems.</p>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id8" id="selected-test-files" name="selected-test-files"><span id="example-8"></span>8. Selected test files</a></h1>
+<h1><a class="toc-backref" href="#id9" id="selected-test-files" name="selected-test-files"><span id="example-8"></span>8. Selected test files</a></h1>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -422,7 +422,7 @@ container of smart pointers</td>
 </table>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id9" id="a-large-example" name="a-large-example">9. A large example</a></h1>
+<h1><a class="toc-backref" href="#id10" id="a-large-example" name="a-large-example">9. A large example</a></h1>
 <p>This examples shows many of the most common
 features at work. The example provide lots of comments.</p>
 <html>
@@ -808,7 +808,7 @@ as view into other containers:
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Copyright:</th><td class="field-body">Thorsten Ottosen 2004-2006.</td>
+<tr class="field"><th class="field-name">Copyright:</th><td class="field-body">Thorsten Ottosen 2004-2006. Use, modification and distribution is subject to the Boost Software License, Version 1.0 (see <a class="reference" href="http://www.boost.org/LICENSE_1_0.txt">LICENSE_1_0.txt</a>).</td>
 </tr>
 </tbody>
 </table>

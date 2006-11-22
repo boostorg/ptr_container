@@ -136,5 +136,8 @@ Semantics: pointer container requirements
 
         <hr>
 
-:Copyright:     Thorsten Ottosen 2004-2006. 
+:Copyright:     Thorsten Ottosen 2004-2006. Use, modification and distribution is subject to the Boost Software License, Version 1.0 (see LICENSE_1_0.txt__).
+
+__ http://www.boost.org/LICENSE_1_0.txt
+
 
