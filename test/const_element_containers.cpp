@@ -12,49 +12,52 @@
 #include <boost/ptr_container/ptr_container.hpp>
 #include <boost/test/unit_test.hpp>
 
-template< class T >
-void test_instantiations()
-{
-    // force instantiation of all members
-    template class
-    boost::ptr_array<T,42>;
-
-    template class
-    boost::ptr_deque<T>;
-
-    template class
-    boost::ptr_list<T>;
-    
-    template class
-    boost::ptr_map<int,T>;
-
-    template class
-    boost::ptr_vector<T>;
+// force instantiation of all members
+#define TEST_INSTANTIATIONS(T) \
+    template class \
+    boost::ptr_array<T,42>; \
+ \
+    template class \
+    boost::ptr_deque<T>; \
+ \
+    template class \
+    boost::ptr_list<T>; \
+ \
+    template class \
+    boost::ptr_map<int,T>; \
+ \
+    template class \
+    boost::ptr_vector<T>; \
 
     //@todo problem with constructor forwarding
     //template class
     //boost::ptr_unordered_map<int,T>;
-    
+
+
+TEST_INSTANTIATIONS(const int)
+TEST_INSTANTIATIONS(boost::nullable<const int>)
+
+template class
+boost::ptr_set<const int>;
+
+// @todo: problem with constructor forwarding
+//template class
+//boost::ptr_unordered_set<const int>;
+
+
+template< class T >
+void test_instantiations()
+{
     // @todo: there seems to be some problems with
     //        argument passing in circular_buffer
     //boost::ptr_circular_buffer<T> buffer(32);
-    //buffer.push_back( new int(42)  );   
+    //buffer.push_back( new int(42)  );
 }
 
-
-
 void test_const_element_container()
-{    
+{
     test_instantiations<const int>();
     test_instantiations< boost::nullable<const int> >();
-    
-    template class
-    boost::ptr_set<const int>;
-
-    // @todo: problem with constructor forwarding
-    //template class
-    //boost::ptr_unordered_set<T>;
-
 }
 
 
@@ -69,9 +72,4 @@ test_suite* init_unit_test_suite( int argc, char* argv[] )
 
     return test;
 }
-
-
-
-
-
 
