@@ -22,6 +22,7 @@
 #include <boost/ptr_container/detail/void_ptr_iterator.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <iterator>
 
 
 namespace boost
@@ -513,7 +514,9 @@ namespace ptr_container_detail
             size_type old_size = this->size();
             if( old_size > size )
             {
-                this->erase( boost::next( this->begin(), size ), this->end() );  
+                iterator from = this->begin();
+                std::advance( from, size );
+                this->erase( from, this->end() );
             }
             else if( size > old_size )
             {
@@ -530,7 +533,9 @@ namespace ptr_container_detail
             size_type old_size = this->size();
             if( old_size > size )
             {
-                this->erase( boost::next( this->begin(), size ), this->end() );  
+                iterator from = this->begin();
+                std::advance( from, size );
+                this->erase( from, this->end() );
             }
             else if( size > old_size )
             {
@@ -546,8 +551,9 @@ namespace ptr_container_detail
             size_type old_size = this->size();
             if( old_size > size )
             {
-                this->erase( this->begin(), 
-                             boost::next( this->begin(), old_size - size ) );  
+                iterator to = this->begin();
+                std::advance( to, old_size - size );
+                this->erase( this->begin(), to );
             }
             else if( size > old_size )
             {
@@ -564,8 +570,9 @@ namespace ptr_container_detail
             size_type old_size = this->size();
             if( old_size > size )
             {
-                this->erase( this->begin(), 
-                             boost::next( this->begin(), old_size - size ) );  
+                iterator to = this->begin();
+                std::advance( to, old_size - size );
+                this->erase( this->begin(), to );
             }
             else if( size > old_size )
             {
