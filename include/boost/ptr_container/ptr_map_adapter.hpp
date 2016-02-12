@@ -170,12 +170,10 @@ namespace ptr_container_detail
         const_mapped_reference lookup( const key_type& key ) const
         {
            const_iterator i = this->find( key );
-           if( i != this->end() )
-               return *i->second;
-           else                                           
-               BOOST_PTR_CONTAINER_THROW_EXCEPTION( true, bad_ptr_container_operation,
-                                                    "'ptr_map/multimap::at()' could"
-                                                    " not find key" );
+           BOOST_PTR_CONTAINER_THROW_EXCEPTION( i == this->end(), bad_ptr_container_operation,
+                                                "'ptr_map/multimap::at()' could"
+                                                " not find key" );
+           return *i->second;
         }
 
         struct eraser // scope guard
