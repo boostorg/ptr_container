@@ -13,7 +13,7 @@
 #ifndef BOOST_INDIRECT_CONTAINER_NULLABLE_HPP
 #define BOOST_INDIRECT_CONTAINER_NULLABLE_HPP
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
 # pragma once
 #endif
 
