@@ -26,7 +26,7 @@ namespace boost
     < 
         class T, 
         class CloneAllocator = heap_clone_allocator,
-        class Allocator      = std::allocator<void*>
+        class Allocator      = std::allocator<typename ptr_container_detail::void_ptr<T>::type>
     >
     class ptr_deque : public 
         ptr_sequence_adapter< T, std::deque<
