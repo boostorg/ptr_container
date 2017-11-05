@@ -28,7 +28,7 @@ namespace boost
         class Key, 
         class Compare        = std::less<Key>,
         class CloneAllocator = heap_clone_allocator,
-        class Allocator      = std::allocator<void*>
+        class Allocator      = std::allocator<typename ptr_container_detail::void_ptr<Key>::type>
     >
     class ptr_set : 
         public ptr_set_adapter< Key, std::set<

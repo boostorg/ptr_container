@@ -28,7 +28,7 @@ namespace boost
         class T, 
         class Compare        = std::less<Key>,
         class CloneAllocator = heap_clone_allocator,
-        class Allocator      = std::allocator< std::pair<const Key,void*> >
+        class Allocator      = std::allocator< std::pair<const Key,typename ptr_container_detail::void_ptr<T>::type> >
     >
     class ptr_map : 
         public ptr_map_adapter<T,std::map<Key,
