@@ -106,10 +106,21 @@ void test_set()
 
     BOOST_CHECK_THROW( set.insert( 0 ), bad_ptr_container_operation );
     set.insert( new int(0) );
+#ifndef BOOST_NO_AUTO_PTR
     std::auto_ptr<int> ap( new int(1) );
     set.insert( ap );
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+    std::unique_ptr<int> up( new int(2) );
+    set.insert( std::move( up ) );
+#endif
     BOOST_CHECK_THROW( (set.replace(set.begin(), 0 )), bad_ptr_container_operation );
+#ifndef BOOST_NO_AUTO_PTR
     BOOST_CHECK_THROW( (set.replace(set.begin(), std::auto_ptr<int>(0) )), bad_ptr_container_operation );
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+    BOOST_CHECK_THROW( (set.replace(set.begin(), std::unique_ptr<int>(nullptr) )), bad_ptr_container_operation );
+#endif
 
     test_unordered_interface< ptr_unordered_set<Base>, Derived_class >();
     test_unordered_interface< ptr_unordered_multiset<Base>, Derived_class >();

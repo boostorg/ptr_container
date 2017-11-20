@@ -37,9 +37,17 @@ void test_ptr_deque()
     random_access_algorithms_test< ptr_deque<int> >();
     ptr_deque<int> di;
     di.push_front( new int(0) );
-    BOOST_CHECK_EQUAL( di.size(), 1u );
+    std::size_t size = 1u;
+    BOOST_CHECK_EQUAL( di.size(), size );
+#ifndef BOOST_NO_AUTO_PTR
     di.push_front( std::auto_ptr<int>( new int(1) ) );
-    BOOST_CHECK_EQUAL( di.size(), 2u ); 
+    ++size;
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+    di.push_front( std::unique_ptr<int>( new int(2) ) );
+    ++size;
+#endif
+    BOOST_CHECK_EQUAL( di.size(), size );
 }
 
 using boost::unit_test::test_suite;

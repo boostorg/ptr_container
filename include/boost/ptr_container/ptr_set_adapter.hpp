@@ -182,10 +182,18 @@ namespace ptr_container_detail
           : base_type( r )
         { }
                 
+#ifndef BOOST_NO_AUTO_PTR
         template< class PtrContainer >
         explicit ptr_set_adapter_base( std::auto_ptr<PtrContainer> clone )
          : base_type( clone )
         { }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class PtrContainer >
+        explicit ptr_set_adapter_base( std::unique_ptr<PtrContainer> clone )
+         : base_type( std::move( clone ) )
+        { }
+#endif
         
         ptr_set_adapter_base& operator=( ptr_set_adapter_base r ) 
         {
@@ -193,12 +201,22 @@ namespace ptr_container_detail
             return *this;
         }
         
+#ifndef BOOST_NO_AUTO_PTR
         template< typename PtrContainer >
         ptr_set_adapter_base& operator=( std::auto_ptr<PtrContainer> clone )    
         {
             base_type::operator=( clone );
             return *this;
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< typename PtrContainer >
+        ptr_set_adapter_base& operator=( std::unique_ptr<PtrContainer> clone )    
+        {
+            base_type::operator=( std::move( clone ) );
+            return *this;
+        }
+#endif
 
         using base_type::erase;
         
@@ -393,10 +411,18 @@ namespace ptr_container_detail
           : base_type( r )
         { }
         
+#ifndef BOOST_NO_AUTO_PTR
         template< class PtrContainer >
         explicit ptr_set_adapter( std::auto_ptr<PtrContainer> clone )
          : base_type( clone )
         { }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class PtrContainer >
+        explicit ptr_set_adapter( std::unique_ptr<PtrContainer> clone )
+         : base_type( std::move( clone ) )
+        { }
+#endif
 
         template< class U, class Set, class CA, bool b >
         ptr_set_adapter& operator=( const ptr_set_adapter<U,Set,CA,b>& r ) 
@@ -405,11 +431,20 @@ namespace ptr_container_detail
             return *this;
         }
 
+#ifndef BOOST_NO_AUTO_PTR
         template< class T >
         void operator=( std::auto_ptr<T> r ) 
         {
             base_type::operator=( r );
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class T >
+        void operator=( std::unique_ptr<T> r ) 
+        {
+            base_type::operator=( std::move( r ) );
+        }
+#endif
 
         std::pair<iterator,bool> insert( key_type* x ) // strong                      
         {       
@@ -423,11 +458,20 @@ namespace ptr_container_detail
             return std::make_pair( iterator( res.first ), res.second );     
         }
 
+#ifndef BOOST_NO_AUTO_PTR
         template< class U >
         std::pair<iterator,bool> insert( std::auto_ptr<U> x )
         {
             return insert( x.release() );
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class U >
+        std::pair<iterator,bool> insert( std::unique_ptr<U> x )
+        {
+            return insert( x.release() );
+        }
+#endif
 
         
         iterator insert( iterator where, key_type* x ) // strong
@@ -442,11 +486,20 @@ namespace ptr_container_detail
             return iterator( res);
         }
 
+#ifndef BOOST_NO_AUTO_PTR
         template< class U >
         iterator insert( iterator where, std::auto_ptr<U> x )
         {
             return insert( where, x.release() );
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class U >
+        iterator insert( iterator where, std::unique_ptr<U> x )
+        {
+            return insert( where, x.release() );
+        }
+#endif
         
         template< typename InputIterator >
         void insert( InputIterator first, InputIterator last ) // basic
@@ -593,10 +646,18 @@ namespace ptr_container_detail
           : base_type( r )
         { }
         
+#ifndef BOOST_NO_AUTO_PTR
         template< class PtrContainer >
         explicit ptr_multiset_adapter( std::auto_ptr<PtrContainer> clone )
          : base_type( clone )
         { }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class PtrContainer >
+        explicit ptr_multiset_adapter( std::unique_ptr<PtrContainer> clone )
+         : base_type( std::move( clone ) )
+        { }
+#endif
 
         template< class U, class Set, class CA, bool b >
         ptr_multiset_adapter& operator=( const ptr_multiset_adapter<U,Set,CA,b>& r ) 
@@ -605,22 +666,40 @@ namespace ptr_container_detail
             return *this;
         }
         
+#ifndef BOOST_NO_AUTO_PTR
         template< class T >
         void operator=( std::auto_ptr<T> r ) 
         {
             base_type::operator=( r ); 
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class T >
+        void operator=( std::unique_ptr<T> r ) 
+        {
+            base_type::operator=( std::move( r ) ); 
+        }
+#endif
 
         iterator insert( iterator before, key_type* x ) // strong  
         {
             return base_type::insert( before, x ); 
         } 
 
+#ifndef BOOST_NO_AUTO_PTR
         template< class U >
         iterator insert( iterator before, std::auto_ptr<U> x )
         {
             return insert( before, x.release() );
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class U >
+        iterator insert( iterator before, std::unique_ptr<U> x )
+        {
+            return insert( before, x.release() );
+        }
+#endif
     
         iterator insert( key_type* x ) // strong                                      
         {   
@@ -633,11 +712,20 @@ namespace ptr_container_detail
             return iterator( res );                                             
         }
 
+#ifndef BOOST_NO_AUTO_PTR
         template< class U >
         iterator insert( std::auto_ptr<U> x )
         {
             return insert( x.release() );
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class U >
+        iterator insert( std::unique_ptr<U> x )
+        {
+            return insert( x.release() );
+        }
+#endif
     
         template< typename InputIterator >
         void insert( InputIterator first, InputIterator last ) // basic

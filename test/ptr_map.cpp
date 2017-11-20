@@ -142,9 +142,18 @@ void ptr_map_test()
     a_key = get_next_key( a_key );
     c.insert( a_key, new T );
     a_key = get_next_key( a_key );
+#ifndef BOOST_NO_AUTO_PTR
     c.insert( a_key, std::auto_ptr<T>( new T ) );
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+    c.insert( a_key, std::unique_ptr<T>( new T ) );
+#endif
     typename C::auto_type ptr2  = c.release( c.begin() );
+#ifndef BOOST_NO_AUTO_PTR
     std::auto_ptr<C> ap         = c.release();
+#else
+    std::unique_ptr<C> up       = c.release();
+#endif
     c                           = c2.clone();
     BOOST_TEST_MESSAGE( "finished release/clone test" );
 
@@ -172,7 +181,12 @@ void ptr_map_test()
 
     BOOST_CHECK( !c3.empty() );
     c3.replace( c3.begin(), new T );
+#ifndef BOOST_NO_AUTO_PTR
     c3.replace( c3.begin(), std::auto_ptr<T>( new T ) );
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+    c3.replace( c3.begin(), std::unique_ptr<T>( new T ) );
+#endif
     BOOST_TEST_MESSAGE( "finished set/map interface test" );
 
     // @todo: make macro with algorithms so that the right erase() is called.

@@ -89,7 +89,12 @@ void test_array()
     ptr_array<int,10> vec;
     BOOST_CHECK_THROW( vec.at(10), bad_ptr_container_operation );
     BOOST_CHECK_THROW( (vec.replace(10u, new int(0))), bad_ptr_container_operation );
+#ifndef BOOST_NO_AUTO_PTR
     BOOST_CHECK_THROW( (vec.replace(10u, std::auto_ptr<int>(new int(0)))), bad_ptr_container_operation ); 
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+    BOOST_CHECK_THROW( (vec.replace(10u, std::unique_ptr<int>(new int(0)))), bad_ptr_container_operation ); 
+#endif
     BOOST_CHECK_THROW( (vec.replace(0u, 0)), bad_ptr_container_operation ); 
 
     ptr_array<Derived_class,2> derived;
@@ -112,7 +117,12 @@ void test_array_interface()
     c.replace( 0, new T );
     c.replace( 1, new B );
     c.replace( 9, new T );
+#ifndef BOOST_NO_AUTO_PTR
     c.replace( 0, std::auto_ptr<T>( new T ) );
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+    c.replace( 0, std::unique_ptr<T>( new T ) );
+#endif
     const C c2( c.clone() );
     
     BOOST_DEDUCED_TYPENAME C::iterator i                  = c.begin();

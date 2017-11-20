@@ -259,6 +259,7 @@ namespace ptr_container_detail
          : base_type( first, last, hash, pred, a )
         { }
                 
+#ifndef BOOST_NO_AUTO_PTR
         template< class PtrContainer >
         explicit ptr_map_adapter_base( std::auto_ptr<PtrContainer> clone ) 
         : base_type( clone )
@@ -270,6 +271,20 @@ namespace ptr_container_detail
             base_type::operator=( clone );
             return *this;
         }        
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class PtrContainer >
+        explicit ptr_map_adapter_base( std::unique_ptr<PtrContainer> clone ) 
+        : base_type( std::move( clone ) )
+        { }
+        
+        template< typename PtrContainer >
+        ptr_map_adapter_base& operator=( std::unique_ptr<PtrContainer> clone )    
+        {
+            base_type::operator=( std::move( clone ) );
+            return *this;
+        }        
+#endif
 
         iterator find( const key_type& x )                                                
         {                                                                            
@@ -353,11 +368,20 @@ namespace ptr_container_detail
             return boost::ptr_container::move( old );
         }
 
+#ifndef BOOST_NO_AUTO_PTR
         template< class U >
         auto_type replace( iterator where, std::auto_ptr<U> x )
         {
             return replace( where, x.release() );
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class U >
+        auto_type replace( iterator where, std::unique_ptr<U> x )
+        {
+            return replace( where, x.release() );
+        }
+#endif
 
     protected:
         size_type bucket( const key_type& key ) const
@@ -488,9 +512,16 @@ namespace ptr_container_detail
             map_basic_clone_and_insert( r.begin(), r.end() );      
         }
         
+#ifndef BOOST_NO_AUTO_PTR
         template< class U >
         ptr_map_adapter( std::auto_ptr<U> r ) : base_type( r )
         { }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class U >
+        ptr_map_adapter( std::unique_ptr<U> r ) : base_type( std::move( r ) )
+        { }
+#endif
 
         ptr_map_adapter& operator=( ptr_map_adapter r )
         {
@@ -498,12 +529,22 @@ namespace ptr_container_detail
             return *this;
         }
 
+#ifndef BOOST_NO_AUTO_PTR
         template< class U >
         ptr_map_adapter& operator=( std::auto_ptr<U> r )
         {  
             base_type::operator=( r );
             return *this;
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class U >
+        ptr_map_adapter& operator=( std::unique_ptr<U> r )
+        {  
+            base_type::operator=( std::move( r ) );
+            return *this;
+        }
+#endif
 
         using base_type::release;
 
@@ -552,11 +593,20 @@ namespace ptr_container_detail
             return insert_impl( key, x );
         }
 
+#ifndef BOOST_NO_AUTO_PTR
         template< class U >
         std::pair<iterator,bool> insert( const key_type& key, std::auto_ptr<U> x )
         {
             return insert_impl( key, x.release() );
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class U >
+        std::pair<iterator,bool> insert( const key_type& key, std::unique_ptr<U> x )
+        {
+            return insert_impl( key, x.release() );
+        }
+#endif
 
         template< class F, class S >
         iterator insert( iterator before, ptr_container_detail::ref_pair<F,S> p ) // strong
@@ -579,11 +629,20 @@ namespace ptr_container_detail
             return insert_impl( before, key, x );
         }
 
+#ifndef BOOST_NO_AUTO_PTR
         template< class U >
         iterator insert( iterator before, const key_type& key, std::auto_ptr<U> x ) // strong
         {
             return insert_impl( before, key, x.release() );
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class U >
+        iterator insert( iterator before, const key_type& key, std::unique_ptr<U> x ) // strong
+        {
+            return insert_impl( before, key, x.release() );
+        }
+#endif
         
         template< class PtrMapAdapter >
         bool transfer( BOOST_DEDUCED_TYPENAME PtrMapAdapter::iterator object, 
@@ -738,9 +797,16 @@ namespace ptr_container_detail
             map_basic_clone_and_insert( r.begin(), r.end() );      
         }
         
+#ifndef BOOST_NO_AUTO_PTR
         template< class U >
         explicit ptr_multimap_adapter( std::auto_ptr<U> r ) : base_type( r )
         { }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class U >
+        explicit ptr_multimap_adapter( std::unique_ptr<U> r ) : base_type( std::move( r ) )
+        { }
+#endif
 
         ptr_multimap_adapter& operator=( ptr_multimap_adapter r )
         {
@@ -748,12 +814,22 @@ namespace ptr_container_detail
             return *this;
         }
 
+#ifndef BOOST_NO_AUTO_PTR
         template< class U >
         ptr_multimap_adapter& operator=( std::auto_ptr<U> r )
         {  
             base_type::operator=( r );
             return *this;
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class U >
+        ptr_multimap_adapter& operator=( std::unique_ptr<U> r )
+        {  
+            base_type::operator=( std::move( r ) );
+            return *this;
+        }
+#endif
 
         using base_type::release;
 
@@ -803,11 +879,20 @@ namespace ptr_container_detail
             return insert_impl( key, x );
         }
 
+#ifndef BOOST_NO_AUTO_PTR
         template< class U >
         iterator insert( const key_type& key, std::auto_ptr<U> x )
         {
             return insert_impl( key, x.release() );
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class U >
+        iterator insert( const key_type& key, std::unique_ptr<U> x )
+        {
+            return insert_impl( key, x.release() );
+        }
+#endif
 
         template< class F, class S >
         iterator insert( iterator before, ptr_container_detail::ref_pair<F,S> p ) // strong
@@ -824,11 +909,20 @@ namespace ptr_container_detail
             return insert_impl( before, key, x );
         }
 
+#ifndef BOOST_NO_AUTO_PTR
         template< class U >
         iterator insert( iterator before, const key_type& key, std::auto_ptr<U> x ) // strong
         {
             return insert_impl( before, key, x.release() );
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class U >
+        iterator insert( iterator before, const key_type& key, std::unique_ptr<U> x ) // strong
+        {
+            return insert_impl( before, key, x.release() );
+        }
+#endif
         
         template< class PtrMapAdapter >
         void transfer( BOOST_DEDUCED_TYPENAME PtrMapAdapter::iterator object, 

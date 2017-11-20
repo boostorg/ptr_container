@@ -34,7 +34,12 @@ void test_ptr_map_adapter()
     
     ptr_map<string,int> m;
     m.insert( joe, new int( 4 ) );
+#ifndef BOOST_NO_AUTO_PTR
     m.insert( brian, std::auto_ptr<int>( new int( 6 ) ) );
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+    m.insert( brian, std::unique_ptr<int>( new int( 6 ) ) );
+#endif
     m[ joe ]   += 56;
     m[ brian ] += 10;
 

@@ -102,8 +102,14 @@ namespace boost
                                         static_cast<const T*>( &r[i] ) ); 
         }
 
+#ifndef BOOST_NO_AUTO_PTR
         explicit ptr_array( std::auto_ptr<this_type> r )
         : base_class( r ) { }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        explicit ptr_array( std::unique_ptr<this_type> r )
+        : base_class( std::move( r ) ) { }
+#endif
 
         ptr_array& operator=( ptr_array r )
         {
@@ -111,12 +117,22 @@ namespace boost
             return *this;            
         }
 
+#ifndef BOOST_NO_AUTO_PTR
         ptr_array& operator=( std::auto_ptr<this_type> r )
         {
             base_class::operator=(r);
             return *this;
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        ptr_array& operator=( std::unique_ptr<this_type> r )
+        {
+            base_class::operator=(std::move(r));
+            return *this;
+        }
+#endif
 
+#ifndef BOOST_NO_AUTO_PTR
         std::auto_ptr<this_type> release()
         {
             std::auto_ptr<this_type> ptr( new this_type );
@@ -127,12 +143,32 @@ namespace boost
         std::auto_ptr<this_type> clone() const
         {
             std::auto_ptr<this_type> pa( new this_type );
+            clone_array_elements( *pa );
+            return pa;
+        }
+#else
+        std::unique_ptr<this_type> release()
+        {
+            std::unique_ptr<this_type> ptr( new this_type );
+            this->swap( *ptr );
+            return ptr;
+        }
+
+        std::unique_ptr<this_type> clone() const
+        {
+            std::unique_ptr<this_type> pa( new this_type );
+            clone_array_elements( *pa );
+            return pa;
+        }
+#endif
+    private:
+        void clone_array_elements( this_type &pa ) const
+        {
             for( size_t i = 0; i != N; ++i )
             {
                 if( !this->is_null(i) )
-                    pa->replace( i, pa->null_policy_allocate_clone( &(*this)[i] ) ); 
+                    pa.replace( i, pa.null_policy_allocate_clone( &(*this)[i] ) ); 
             }
-            return pa;
         }
 
     private: // hide some members
@@ -158,11 +194,20 @@ namespace boost
             return boost::ptr_container::move(res);                     // nothrow 
         }
 
+#ifndef BOOST_NO_AUTO_PTR
         template< size_t idx, class V >
         auto_type replace( std::auto_ptr<V> r )
         {
             return replace<idx>( r.release() );
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< size_t idx, class V >
+        auto_type replace( std::unique_ptr<V> r )
+        {
+            return replace<idx>( r.release() );
+        }
+#endif
 
         auto_type replace( size_t idx, U* r ) // strong
         {
@@ -177,11 +222,20 @@ namespace boost
             return boost::ptr_container::move(res);                     // nothrow 
         }
 
+#ifndef BOOST_NO_AUTO_PTR
         template< class V >
         auto_type replace( size_t idx, std::auto_ptr<V> r )
         {
             return replace( idx, r.release() );
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class V >
+        auto_type replace( size_t idx, std::unique_ptr<V> r )
+        {
+            return replace( idx, r.release() );
+        }
+#endif
 
         using base_class::at;
 

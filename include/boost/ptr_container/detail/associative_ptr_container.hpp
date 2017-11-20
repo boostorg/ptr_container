@@ -103,10 +103,18 @@ namespace ptr_container_detail
          : base_type( first, last, hash, pred, a )
         { }
         
+#ifndef BOOST_NO_AUTO_PTR        
         template< class PtrContainer >
         explicit associative_ptr_container( std::auto_ptr<PtrContainer> r )
          : base_type( r )
         { }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class PtrContainer >
+        explicit associative_ptr_container( std::unique_ptr<PtrContainer> r )
+         : base_type( std::move( r ) )
+        { }
+#endif
 
         associative_ptr_container( const associative_ptr_container& r )
          : base_type( r.begin(), r.end(), container_type() )
@@ -117,12 +125,22 @@ namespace ptr_container_detail
          : base_type( r.begin(), r.end(), container_type() )
         { }
         
+#ifndef BOOST_NO_AUTO_PTR        
         template< class PtrContainer >
         associative_ptr_container& operator=( std::auto_ptr<PtrContainer> r ) // nothrow
         {
            base_type::operator=( r );
            return *this;
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class PtrContainer >
+        associative_ptr_container& operator=( std::unique_ptr<PtrContainer> r ) // nothrow
+        {
+           base_type::operator=( std::move( r ) );
+           return *this;
+        }
+#endif
         
         associative_ptr_container& operator=( associative_ptr_container r ) // strong
         {

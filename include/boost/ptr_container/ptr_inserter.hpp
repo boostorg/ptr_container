@@ -71,6 +71,7 @@ namespace ptr_container
             return *this;
         }
 
+#ifndef BOOST_NO_AUTO_PTR
         template< class T >
         ptr_back_insert_iterator& 
         operator=( std::auto_ptr<T> r )
@@ -78,6 +79,16 @@ namespace ptr_container
             container->push_back( r );
             return *this;
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class T >
+        ptr_back_insert_iterator& 
+        operator=( std::unique_ptr<T> r )
+        {
+            container->push_back( std::move( r ) );
+            return *this;
+        }
+#endif
 
         ptr_back_insert_iterator& 
         operator=( typename PtrContainer::const_reference r )
@@ -128,6 +139,7 @@ namespace ptr_container
             return *this;
         }
 
+#ifndef BOOST_NO_AUTO_PTR
         template< class T >
         ptr_front_insert_iterator& 
         operator=( std::auto_ptr<T> r )
@@ -135,6 +147,16 @@ namespace ptr_container
             container->push_front( r );
             return *this;
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class T >
+        ptr_front_insert_iterator& 
+        operator=( std::unique_ptr<T> r )
+        {
+            container->push_front( std::move( r ) );
+            return *this;
+        }
+#endif
         
         ptr_front_insert_iterator& 
         operator=( typename PtrContainer::const_reference r )
@@ -187,6 +209,7 @@ namespace ptr_container
             return *this;
         }
 
+#ifndef BOOST_NO_AUTO_PTR
         template< class T >
         ptr_insert_iterator& 
         operator=( std::auto_ptr<T> r )
@@ -194,6 +217,16 @@ namespace ptr_container
             iter = container->insert( iter, r );
             return *this;
         }
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+        template< class T >
+        ptr_insert_iterator& 
+        operator=( std::unique_ptr<T> r )
+        {
+            iter = container->insert( iter, std::move( r ) );
+            return *this;
+        }
+#endif
         
         ptr_insert_iterator& 
         operator=( typename PtrContainer::const_reference r )

@@ -44,7 +44,12 @@ void test_list()
     list.push_back( new int(2) );
     list.push_back( new int(1) );
     list.push_front( new int(3) );
+#ifndef BOOST_NO_AUTO_PTR
     list.push_front( std::auto_ptr<int>( new int(42) ) );
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+    list.push_front( std::unique_ptr<int>( new int(43) ) );
+#endif
     list.reverse();
 }
 

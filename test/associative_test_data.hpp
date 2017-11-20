@@ -100,10 +100,17 @@ void ptr_set_test()
     
     T* t = new T;
     c.insert( c.end(), t );    
-    c.insert( c.end(), std::auto_ptr<T>( new T ) );
     c.insert( new T ); 
+#ifndef BOOST_NO_AUTO_PTR        
+    c.insert( c.end(), std::auto_ptr<T>( new T ) );
     std::auto_ptr<T> ap( new T );
     c.insert( ap );
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+    c.insert( c.end(), std::unique_ptr<T>( new T ) );
+    std::unique_ptr<T> up( new T );
+    c.insert( std::move( up ) );
+#endif
     c3.insert( c.begin(), c.end() ); 
     c.erase( c.begin() );
     c3.erase( c3.begin(), c3.end() );
@@ -130,7 +137,11 @@ void ptr_set_test()
              
     c.insert( c.end(), new T );
     typename C::auto_type ptr2  = c.release( c.begin() );
-    std::auto_ptr<C> ap2         = c.release();
+#ifndef BOOST_NO_AUTO_PTR
+    std::auto_ptr<C> ap2        = c.release();
+#else
+    std::unique_ptr<C> up2      = c.release();
+#endif
     c                           = c2.clone();
     BOOST_TEST_MESSAGE( "finished release/clone test" ); 
 
