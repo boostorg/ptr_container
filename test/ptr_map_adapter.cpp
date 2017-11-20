@@ -11,6 +11,7 @@
 
 #include "test_data.hpp"
 #include <boost/ptr_container/ptr_map.hpp>
+#include <boost/test/unit_test.hpp>
 #include <string>
 
 using namespace std;
@@ -66,8 +67,6 @@ void test_ptr_map_adapter()
 }
 
 
-#include <boost/test/included/unit_test.hpp> 
-
 using boost::unit_test::test_suite;
 
 test_suite* init_unit_test_suite( int argc, char* argv[] )
@@ -78,8 +77,3 @@ test_suite* init_unit_test_suite( int argc, char* argv[] )
 
     return test;
 }
-
-
-
-
-
