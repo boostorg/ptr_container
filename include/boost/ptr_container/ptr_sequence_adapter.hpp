@@ -22,6 +22,7 @@
 #include <boost/ptr_container/detail/void_ptr_iterator.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/next_prior.hpp>
 
 
 namespace boost

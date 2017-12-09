@@ -18,6 +18,7 @@
 
 #include <boost/circular_buffer.hpp>
 #include <boost/ptr_container/ptr_sequence_adapter.hpp>
+#include <boost/next_prior.hpp>
 
 namespace boost
 {
