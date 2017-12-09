@@ -19,6 +19,12 @@
 #include <boost/circular_buffer.hpp>
 #include <boost/ptr_container/ptr_sequence_adapter.hpp>
 #include <boost/next_prior.hpp>
+#include <boost/ptr_container/detail/ptr_container_disable_deprecated.hpp>
+
+#if defined(BOOST_PTR_CONTAINER_DISABLE_DEPRECATED)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
 
 namespace boost
 {
@@ -565,5 +571,9 @@ namespace boost
     }
     
 }
+
+#if defined(BOOST_PTR_CONTAINER_DISABLE_DEPRECATED)
+#pragma GCC diagnostic pop
+#endif
 
 #endif

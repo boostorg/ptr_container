@@ -19,8 +19,14 @@
 #include <boost/ptr_container/detail/map_iterator.hpp>
 #include <boost/ptr_container/detail/associative_ptr_container.hpp>
 #include <boost/ptr_container/detail/meta_functions.hpp>
+#include <boost/ptr_container/detail/ptr_container_disable_deprecated.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/range/iterator_range.hpp>
+
+#if defined(BOOST_PTR_CONTAINER_DISABLE_DEPRECATED)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
 
 namespace boost
 {
@@ -968,5 +974,9 @@ namespace ptr_container_detail
     }
     
 } // namespace 'boost'  
+
+#if defined(BOOST_PTR_CONTAINER_DISABLE_DEPRECATED)
+#pragma GCC diagnostic pop
+#endif
 
 #endif

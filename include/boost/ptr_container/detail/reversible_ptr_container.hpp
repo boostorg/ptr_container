@@ -20,6 +20,7 @@
 #include <boost/ptr_container/detail/throw_exception.hpp>
 #include <boost/ptr_container/detail/scoped_deleter.hpp>
 #include <boost/ptr_container/detail/static_move_ptr.hpp>
+#include <boost/ptr_container/detail/ptr_container_disable_deprecated.hpp>
 #include <boost/ptr_container/exception.hpp>
 #include <boost/ptr_container/clone_allocator.hpp>
 #include <boost/ptr_container/nullable.hpp>
@@ -44,6 +45,11 @@
 #pragma warning(disable:4127)
 #pragma warning(disable:4224) // formal parameter was previously defined as a type.
 #endif  
+
+#if defined(BOOST_PTR_CONTAINER_DISABLE_DEPRECATED)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
 
 namespace boost
 {
@@ -848,6 +854,10 @@ namespace ptr_container_detail
     }
 
 } // namespace 'boost'  
+
+#if defined(BOOST_PTR_CONTAINER_DISABLE_DEPRECATED)
+#pragma GCC diagnostic pop
+#endif
 
 #if BOOST_WORKAROUND(BOOST_MSVC, >= 1400)  
 #pragma warning(pop)  
