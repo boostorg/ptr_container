@@ -10,8 +10,14 @@
 //
 
 #include "test_data.hpp"
+#include <boost/ptr_container/detail/ptr_container_disable_deprecated.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/bind.hpp>
+
+#if defined(BOOST_PTR_CONTAINER_DISABLE_DEPRECATED)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
 
 template< typename C, typename B, typename T >
 void reversible_container_test();
@@ -325,3 +331,6 @@ void random_access_algorithms_test()
     BOOST_TEST_MESSAGE( "finished random accessors algorithms test" );
 }
 
+#if defined(BOOST_PTR_CONTAINER_DISABLE_DEPRECATED)
+#pragma GCC diagnostic pop
+#endif
