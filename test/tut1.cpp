@@ -141,7 +141,7 @@ class farm
     typedef boost::ptr_deque<animal> barn_type;
     barn_type                        barn;
 
-#if defined( BOOST_NO_AUTO_PTR )
+#ifndef BOOST_NO_CXX11_SMART_PTR
     typedef std::unique_ptr<barn_type> raii_ptr;
 #else
     typedef std::auto_ptr<barn_type> raii_ptr;

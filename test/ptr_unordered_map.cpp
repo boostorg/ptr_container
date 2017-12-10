@@ -12,6 +12,7 @@
 #include "test_data.hpp"
 #include <boost/test/unit_test.hpp>
 #include <boost/ptr_container/exception.hpp>
+#include <boost/ptr_container/detail/ptr_container_disable_deprecated.hpp>
 #include <boost/range/sub_range.hpp>
 #include <boost/cast.hpp>
 #include <cstdlib>
@@ -85,6 +86,10 @@ std::string get_next_key<std::string>( const std::string& )
 }
 
 
+#if defined(BOOST_PTR_CONTAINER_DISABLE_DEPRECATED)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
 
 template< typename C, typename B, typename T >
 void ptr_map_test()
@@ -242,6 +247,9 @@ void ptr_map_test()
 
 }
 
+#if defined(BOOST_PTR_CONTAINER_DISABLE_DEPRECATED)
+#pragma GCC diagnostic pop
+#endif
 
 
 template< class CDerived, class CBase, class T >
@@ -415,10 +423,3 @@ test_suite* init_unit_test_suite( int argc, char* argv[] )
 
     return test;
 }
-
-
-
-
-
-
-

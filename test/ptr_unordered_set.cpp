@@ -12,6 +12,7 @@
 #include <boost/test/unit_test.hpp>
 #include "associative_test_data.hpp"
 #include <boost/ptr_container/ptr_unordered_set.hpp>
+#include <boost/ptr_container/detail/ptr_container_disable_deprecated.hpp>
 
 template< class SetDerived, class SetBase, class T >
 void test_transfer()
@@ -85,6 +86,10 @@ void test_erase()
 }
 
 
+#if defined(BOOST_PTR_CONTAINER_DISABLE_DEPRECATED)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
 
 void test_set()
 {    
@@ -130,6 +135,10 @@ void test_set()
     test_erase< ptr_unordered_multiset<Base> >();
 }
 
+#if defined(BOOST_PTR_CONTAINER_DISABLE_DEPRECATED)
+#pragma GCC diagnostic pop
+#endif
+
 using boost::unit_test::test_suite;
 
 test_suite* init_unit_test_suite( int argc, char* argv[] )
@@ -140,9 +149,3 @@ test_suite* init_unit_test_suite( int argc, char* argv[] )
 
     return test;
 }
-
-
-
-
-
-

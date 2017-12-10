@@ -12,6 +12,7 @@
 #include <boost/test/unit_test.hpp>
 #include "test_data.hpp"
 #include <boost/ptr_container/ptr_array.hpp>
+#include <boost/ptr_container/detail/ptr_container_disable_deprecated.hpp>
 #include <boost/utility.hpp>
 #include <boost/array.hpp>
 #include <algorithm>
@@ -64,6 +65,11 @@ void n_ary_tree<Node,N>::print( std::ostream& out, std::string indent )
 
 template< class C, class B, class T >
 void test_array_interface();
+
+#if defined(BOOST_PTR_CONTAINER_DISABLE_DEPRECATED)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
 
 void test_array()
 {
@@ -175,6 +181,10 @@ void test_array_interface()
     BOOST_TEST_MESSAGE( "finished element access test" ); 
 }
 
+#if defined(BOOST_PTR_CONTAINER_DISABLE_DEPRECATED)
+#pragma GCC diagnostic pop
+#endif
+
 using boost::unit_test::test_suite;
 
 test_suite* init_unit_test_suite( int argc, char* argv[] )
@@ -185,5 +195,3 @@ test_suite* init_unit_test_suite( int argc, char* argv[] )
 
     return test;
 }
-
-

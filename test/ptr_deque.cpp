@@ -12,6 +12,12 @@
 #include <boost/test/unit_test.hpp>
 #include "sequence_test_data.hpp"
 #include <boost/ptr_container/ptr_deque.hpp>
+#include <boost/ptr_container/detail/ptr_container_disable_deprecated.hpp>
+
+#if defined(BOOST_PTR_CONTAINER_DISABLE_DEPRECATED)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
 
 void test_ptr_deque()
 {
@@ -49,6 +55,10 @@ void test_ptr_deque()
 #endif
     BOOST_CHECK_EQUAL( di.size(), size );
 }
+
+#if defined(BOOST_PTR_CONTAINER_DISABLE_DEPRECATED)
+#pragma GCC diagnostic pop
+#endif
 
 using boost::unit_test::test_suite;
 
