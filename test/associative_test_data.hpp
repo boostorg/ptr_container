@@ -39,9 +39,12 @@ struct test_algorithms
         delete t;
 
         BOOST_DEDUCED_TYPENAME Cont::reverse_iterator ri         = c.rbegin();
+        hide_warning(ri);
         BOOST_DEDUCED_TYPENAME Cont::const_reverse_iterator cri  = c2.rbegin();
         BOOST_DEDUCED_TYPENAME Cont::reverse_iterator rv2        = c.rend();
+        hide_warning(rv2);
         BOOST_DEDUCED_TYPENAME Cont::const_reverse_iterator cvr2 = c2.rend();
+        hide_warning(cvr2);
         cri = c.crbegin();
         cri = c.crend();
     }
@@ -83,19 +86,21 @@ void ptr_set_test()
     a_copy = c;
     a_copy = a_copy;
     BOOST_CHECK( a_copy.empty() );
-    
+
     BOOST_TEST_MESSAGE( "finished copying test" ); 
-                 
+
     BOOST_DEDUCED_TYPENAME C::allocator_type alloc        = c.get_allocator();
     BOOST_DEDUCED_TYPENAME C::iterator i                  = c.begin();
     BOOST_DEDUCED_TYPENAME C::const_iterator ci           = c2.begin();
     ci = c.cbegin();
     ci = c.cend();
     BOOST_DEDUCED_TYPENAME C::iterator i2                 = c.end();
+    hide_warning(i2);
     BOOST_DEDUCED_TYPENAME C::const_iterator ci2          = c2.begin();
-                             
+    hide_warning(ci2);
+
     BOOST_TEST_MESSAGE( "finished iterator test" ); 
-   
+
     BOOST_DEDUCED_TYPENAME C::size_type s                 = c.size();
     BOOST_DEDUCED_TYPENAME C::size_type s2                = c.max_size();
     hide_warning(s2);

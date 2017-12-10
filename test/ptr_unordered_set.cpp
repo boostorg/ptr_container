@@ -50,6 +50,7 @@ void test_unordered_interface()
     i = c.end( 0 );
     ci = c.cend( 0 );
     typename Cont::size_type s = c.bucket_count();
+    hide_warning(s);
     s = c.max_bucket_count();
     s = c.bucket_size( 0 );
     s = c.bucket( *t );

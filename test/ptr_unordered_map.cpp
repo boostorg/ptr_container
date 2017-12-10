@@ -107,7 +107,9 @@ void ptr_map_test()
     BOOST_DEDUCED_TYPENAME C::iterator i                  = c.begin();
     BOOST_DEDUCED_TYPENAME C::const_iterator ci           = c2.begin();
     BOOST_DEDUCED_TYPENAME C::iterator i2                 = c.end();
+    hide_warning(i2);
     BOOST_DEDUCED_TYPENAME C::const_iterator ci2          = c2.begin();
+    hide_warning(ci2);
     ci = c.cbegin();
     ci = c.cend();
 
@@ -294,6 +296,7 @@ void test_unordered_interface()
     i = c.end( 0 );
     ci = c.cend( 0 );
     typename Cont::size_type s = c.bucket_count();
+    hide_warning(s);
     s = c.max_bucket_count();
     s = c.bucket_size( 0 );
     s = c.bucket( key );
@@ -388,7 +391,8 @@ void test_map()
     map_type::reference        a_reference  = *m2.begin();
     a_reference.second->foo();
     map_type::const_reference  a_creference = *const_begin(m2);
-   
+    hide_warning(a_creference);
+
     //
     //
     // These will fail as iterators propagate constness

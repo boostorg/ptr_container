@@ -101,11 +101,17 @@ void ptr_map_test()
     BOOST_DEDUCED_TYPENAME C::iterator i                  = c.begin();
     BOOST_DEDUCED_TYPENAME C::const_iterator ci           = c2.begin();
     BOOST_DEDUCED_TYPENAME C::iterator i2                 = c.end();
+    hide_warning(i2);
     BOOST_DEDUCED_TYPENAME C::const_iterator ci2          = c2.begin();
+    hide_warning(ci2);
     BOOST_DEDUCED_TYPENAME C::reverse_iterator ri         = c.rbegin();
+    hide_warning(ri);
     BOOST_DEDUCED_TYPENAME C::const_reverse_iterator cri  = c2.rbegin();
+    hide_warning(cri);
     BOOST_DEDUCED_TYPENAME C::reverse_iterator rv2        = c.rend();
+    hide_warning(rv2);
     BOOST_DEDUCED_TYPENAME C::const_reverse_iterator cvr2 = c2.rend();
+    hide_warning(cvr2);
 
     BOOST_DEDUCED_TYPENAME C::key_type a_key;
 
@@ -384,6 +390,7 @@ void test_map()
     map_type::reference        a_reference  = *m2.begin();
     a_reference.second->foo();
     map_type::const_reference  a_creference = *const_begin(m2);
+    hide_warning(a_creference);
    
     //
     //

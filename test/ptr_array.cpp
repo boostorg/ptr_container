@@ -126,13 +126,21 @@ void test_array_interface()
     const C c2( c.clone() );
     
     BOOST_DEDUCED_TYPENAME C::iterator i                  = c.begin();
+    hide_warning(i);
     BOOST_DEDUCED_TYPENAME C::const_iterator ci           = c2.begin();
+    hide_warning(ci);
     BOOST_DEDUCED_TYPENAME C::iterator i2                 = c.end();
+    hide_warning(i2);
     BOOST_DEDUCED_TYPENAME C::const_iterator ci2          = c2.begin();
+    hide_warning(ci2);
     BOOST_DEDUCED_TYPENAME C::reverse_iterator ri         = c.rbegin();
+    hide_warning(ri);
     BOOST_DEDUCED_TYPENAME C::const_reverse_iterator cri  = c2.rbegin();
+    hide_warning(cri);
     BOOST_DEDUCED_TYPENAME C::reverse_iterator rv2        = c.rend();
+    hide_warning(rv2);
     BOOST_DEDUCED_TYPENAME C::const_reverse_iterator cvr2 = c2.rend();
+    hide_warning(cvr2);
 
     BOOST_TEST_MESSAGE( "finished iterator test" ); 
 
