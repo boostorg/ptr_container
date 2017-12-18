@@ -112,7 +112,7 @@ void ptr_set_test()
     T* t = new T;
     c.insert( c.end(), t );    
     c.insert( new T ); 
-#ifndef BOOST_NO_AUTO_PTR        
+#ifndef BOOST_NO_AUTO_PTR
     c.insert( c.end(), std::auto_ptr<T>( new T ) );
     std::auto_ptr<T> ap( new T );
     c.insert( ap );

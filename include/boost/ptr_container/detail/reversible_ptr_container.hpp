@@ -352,18 +352,18 @@ namespace ptr_container_detail
          : c_( a )
         { }
 
-#ifndef BOOST_NO_AUTO_PTR        
+#ifndef BOOST_NO_AUTO_PTR
         template< class PtrContainer >
-        explicit reversible_ptr_container( std::auto_ptr<PtrContainer> clone )                
-        { 
-            swap( *clone ); 
+        explicit reversible_ptr_container( std::auto_ptr<PtrContainer> clone )
+        {
+            swap( *clone );
         }
 #endif
 #ifndef BOOST_NO_CXX11_SMART_PTR
         template< class PtrContainer >
-        explicit reversible_ptr_container( std::unique_ptr<PtrContainer> clone )                
-        { 
-            swap( *clone ); 
+        explicit reversible_ptr_container( std::unique_ptr<PtrContainer> clone )
+        {
+            swap( *clone );
         }
 #endif
 
@@ -378,7 +378,7 @@ namespace ptr_container_detail
             constructor_impl( r.begin(), r.end(), std::forward_iterator_tag() ); 
         }
 
-#ifndef BOOST_NO_AUTO_PTR        
+#ifndef BOOST_NO_AUTO_PTR
         template< class PtrContainer >
         reversible_ptr_container& operator=( std::auto_ptr<PtrContainer> clone ) // nothrow
         {
@@ -613,7 +613,7 @@ namespace ptr_container_detail
             return res;
         }
 
-#ifndef BOOST_NO_AUTO_PTR        
+#ifndef BOOST_NO_AUTO_PTR
         template< class U >
         iterator insert( iterator before, std::auto_ptr<U> x )
         {
@@ -684,18 +684,18 @@ namespace ptr_container_detail
             return boost::ptr_container_detail::move( old );
         }
 
-#ifndef BOOST_NO_AUTO_PTR        
+#ifndef BOOST_NO_AUTO_PTR
         template< class U >
         auto_type replace( iterator where, std::auto_ptr<U> x )
         {
-            return replace( where, x.release() ); 
+            return replace( where, x.release() );
         }
 #endif
 #ifndef BOOST_NO_CXX11_SMART_PTR
         template< class U >
         auto_type replace( iterator where, std::unique_ptr<U> x )
         {
-            return replace( where, x.release() ); 
+            return replace( where, x.release() );
         }
 #endif
 
@@ -712,7 +712,7 @@ namespace ptr_container_detail
             return boost::ptr_container_detail::move( old );
         } 
 
-#ifndef BOOST_NO_AUTO_PTR        
+#ifndef BOOST_NO_AUTO_PTR
         template< class U >
         auto_type replace( size_type idx, std::auto_ptr<U> x )
         {
@@ -742,7 +742,7 @@ namespace ptr_container_detail
     using base_type::release;
 #endif
 
-#ifndef BOOST_NO_AUTO_PTR        
+#ifndef BOOST_NO_AUTO_PTR
 #define BOOST_PTR_CONTAINER_COPY_AND_ASSIGN_AUTO( PC, base_type, this_type ) \
     explicit PC( std::auto_ptr<this_type> r )       \
     : base_type ( r ) { }                           \
@@ -770,7 +770,7 @@ namespace ptr_container_detail
 #define BOOST_PTR_CONTAINER_COPY_AND_ASSIGN_UNIQUE( PC, base_type, this_type )
 #endif
 
-#ifndef BOOST_NO_AUTO_PTR        
+#ifndef BOOST_NO_AUTO_PTR
 #define BOOST_PTR_CONTAINER_RELEASE_AND_CLONE( this_type ) \
     std::auto_ptr<this_type> release()              \
     {                                               \
@@ -799,9 +799,9 @@ namespace ptr_container_detail
 #else
 #define BOOST_PTR_CONTAINER_RELEASE_AND_CLONE( this_type )
 #endif
-    
+
     //
-    // two-phase lookup of template functions 
+    // two-phase lookup of template functions
     // is buggy on most compilers, so we use a macro instead
     //
 #define BOOST_PTR_CONTAINER_DEFINE_RELEASE_AND_CLONE( PC, base_type, this_type )  \

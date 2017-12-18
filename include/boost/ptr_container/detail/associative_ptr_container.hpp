@@ -109,7 +109,7 @@ namespace ptr_container_detail
          : base_type( first, last, hash, pred, a )
         { }
         
-#ifndef BOOST_NO_AUTO_PTR        
+#ifndef BOOST_NO_AUTO_PTR
         template< class PtrContainer >
         explicit associative_ptr_container( std::auto_ptr<PtrContainer> r )
          : base_type( r )
@@ -131,7 +131,7 @@ namespace ptr_container_detail
          : base_type( r.begin(), r.end(), container_type() )
         { }
         
-#ifndef BOOST_NO_AUTO_PTR        
+#ifndef BOOST_NO_AUTO_PTR
         template< class PtrContainer >
         associative_ptr_container& operator=( std::auto_ptr<PtrContainer> r ) // nothrow
         {

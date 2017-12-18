@@ -246,7 +246,7 @@ namespace ptr_container_detail
         
 #ifndef BOOST_NO_AUTO_PTR
         template< class PtrContainer >
-        ptr_sequence_adapter& operator=( std::auto_ptr<PtrContainer> clone )    
+        ptr_sequence_adapter& operator=( std::auto_ptr<PtrContainer> clone )
         {
             base_type::operator=( clone );
             return *this;
@@ -254,7 +254,7 @@ namespace ptr_container_detail
 #endif
 #ifndef BOOST_NO_CXX11_SMART_PTR
         template< class PtrContainer >
-        ptr_sequence_adapter& operator=( std::unique_ptr<PtrContainer> clone )    
+        ptr_sequence_adapter& operator=( std::unique_ptr<PtrContainer> clone )
         {
             base_type::operator=( std::move( clone ) );
             return *this;

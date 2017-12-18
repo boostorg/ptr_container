@@ -267,12 +267,12 @@ namespace ptr_container_detail
                 
 #ifndef BOOST_NO_AUTO_PTR
         template< class PtrContainer >
-        explicit ptr_map_adapter_base( std::auto_ptr<PtrContainer> clone ) 
+        explicit ptr_map_adapter_base( std::auto_ptr<PtrContainer> clone )
         : base_type( clone )
         { }
-        
+
         template< typename PtrContainer >
-        ptr_map_adapter_base& operator=( std::auto_ptr<PtrContainer> clone )    
+        ptr_map_adapter_base& operator=( std::auto_ptr<PtrContainer> clone )
         {
             base_type::operator=( clone );
             return *this;
@@ -280,16 +280,16 @@ namespace ptr_container_detail
 #endif
 #ifndef BOOST_NO_CXX11_SMART_PTR
         template< class PtrContainer >
-        explicit ptr_map_adapter_base( std::unique_ptr<PtrContainer> clone ) 
+        explicit ptr_map_adapter_base( std::unique_ptr<PtrContainer> clone )
         : base_type( std::move( clone ) )
         { }
-        
+
         template< typename PtrContainer >
-        ptr_map_adapter_base& operator=( std::unique_ptr<PtrContainer> clone )    
+        ptr_map_adapter_base& operator=( std::unique_ptr<PtrContainer> clone )
         {
             base_type::operator=( std::move( clone ) );
             return *this;
-        }        
+        }
 #endif
 
         iterator find( const key_type& x )                                                
@@ -538,7 +538,7 @@ namespace ptr_container_detail
 #ifndef BOOST_NO_AUTO_PTR
         template< class U >
         ptr_map_adapter& operator=( std::auto_ptr<U> r )
-        {  
+        {
             base_type::operator=( r );
             return *this;
         }
@@ -546,7 +546,7 @@ namespace ptr_container_detail
 #ifndef BOOST_NO_CXX11_SMART_PTR
         template< class U >
         ptr_map_adapter& operator=( std::unique_ptr<U> r )
-        {  
+        {
             base_type::operator=( std::move( r ) );
             return *this;
         }

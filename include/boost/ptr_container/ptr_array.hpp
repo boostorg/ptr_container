@@ -173,7 +173,7 @@ namespace boost
             for( size_t i = 0; i != N; ++i )
             {
                 if( !this->is_null(i) )
-                    pa.replace( i, pa.null_policy_allocate_clone( &(*this)[i] ) ); 
+                    pa.replace( i, pa.null_policy_allocate_clone( &(*this)[i] ) );
             }
         }
 

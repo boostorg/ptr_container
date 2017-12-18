@@ -305,14 +305,14 @@ namespace boost
         template< class U >
         void push_back( std::auto_ptr<U> ptr ) // nothrow
         {
-            push_back( ptr.release() ); 
+            push_back( ptr.release() );
         }
 #endif
 #ifndef BOOST_NO_CXX11_SMART_PTR
         template< class U >
         void push_back( std::unique_ptr<U> ptr ) // nothrow
         {
-            push_back( ptr.release() ); 
+            push_back( ptr.release() );
         }
 #endif
 
@@ -331,14 +331,14 @@ namespace boost
         template< class U >
         void push_front( std::auto_ptr<U> ptr ) // nothrow
         {
-            push_front( ptr.release() ); 
+            push_front( ptr.release() );
         }
 #endif
 #ifndef BOOST_NO_CXX11_SMART_PTR
         template< class U >
         void push_front( std::unique_ptr<U> ptr ) // nothrow
         {
-            push_front( ptr.release() ); 
+            push_front( ptr.release() );
         }
 #endif
 
