@@ -57,10 +57,14 @@ namespace ptr_container
 
 
     template< class PtrContainer >
-    class ptr_back_insert_iterator :
-        public std::iterator<std::output_iterator_tag,void,void,void,void>
+    class ptr_back_insert_iterator
     {
     public:
+        typedef std::output_iterator_tag iterator_category;
+        typedef void value_type;
+        typedef void difference_type;
+        typedef void pointer;
+        typedef void reference;
         typedef PtrContainer container_type;
 
     public:
@@ -125,10 +129,14 @@ namespace ptr_container
 
     
     template< class PtrContainer >
-    class ptr_front_insert_iterator :
-        public std::iterator<std::output_iterator_tag,void,void,void,void>
+    class ptr_front_insert_iterator
     {
     public:
+        typedef std::output_iterator_tag iterator_category;
+        typedef void value_type;
+        typedef void difference_type;
+        typedef void pointer;
+        typedef void reference;
         typedef PtrContainer container_type;
 
     public:
@@ -193,10 +201,14 @@ namespace ptr_container
 
     
     template< class PtrContainer >
-    class ptr_insert_iterator :
-        public std::iterator<std::output_iterator_tag,void,void,void,void>
+    class ptr_insert_iterator
     {
     public:
+        typedef std::output_iterator_tag iterator_category;
+        typedef void value_type;
+        typedef void difference_type;
+        typedef void pointer;
+        typedef void reference;
         typedef PtrContainer container_type;
 
     public:
