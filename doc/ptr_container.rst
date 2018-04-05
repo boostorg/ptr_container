@@ -38,6 +38,7 @@ and designs for dealing with OO specific problems
 * `Upgrading from Boost v. 1.33.*`_
 * `Upgrading from Boost v. 1.34.*`_
 * `Upgrading from Boost v. 1.35.*`_
+* `Upgrading from Boost v. 1.66.*`_
 * `Future Developments`_
 * Acknowledgements_
 * References_
@@ -248,7 +249,34 @@ The underlying containers stem from the two boost libraries
 
 - `Boost.Circular Buffer <../../circular_buffer/index.html>`_
 
-Furthermore, `insert iterators <ptr_inserter.html>`_ have been added. 
+Furthermore, `insert iterators <ptr_inserter.html>`_ have been added.
+
+
+
+===================================
+Upgrading from Boost v. ``1.66.*``
+===================================
+
+Starting with Boost v. ``1.67.0``, Boost.Pointer Container will use
+`Boost.Config <../../config/index.html>`_ to conditionally replace
+``std::auto_ptr<T>`` interfaces with ``std::unique_ptr<T>``. Details
+are on the `Compatible Smart Pointer <compatible_smart_ptr.html>`_
+page, which also explains the convention in this documentation of using
+
+.. parsed-literal::
+   *compatible-smart-ptr<T>*
+
+to indicate such conditional interfaces.
+
+For C++98/03 users, this change has no observable effect.
+
+Note that until C++17, it is possible to construct
+``std::unique_ptr<T>`` from ``std::auto_ptr<T>``, so users compiling
+with C++11 or C++14 may not notice any change, although it is a good
+idea to remove any explicit use of ``std::auto_ptr<T>`` all the
+same. The most likely cause of issues may be code that relies on
+``std::auto_ptr<T>`` being copyable, but such errors will occur at
+compile-time and should be easy to fix.
 
 =====================
  Future Developments
