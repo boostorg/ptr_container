@@ -27,7 +27,7 @@ implementations which disable ``std::auto_ptr<T>`` when C++17 or later
 is used. Boost.Pointer Container predates the existence of
 ``std::unique_ptr<T>``, and since Boost v. ``1.34`` it has provided
 ``std::auto_ptr<T>`` overloads for its interfaces. To provide
-compatibility with old and new compilers, macros are used for
+compatibility across a range of C++ standards, macros are used for
 compile-time replacement of ``std::auto_ptr<T>`` interfaces with
 ``std::unique_ptr<T>`` interfaces.
 
