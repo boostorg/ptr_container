@@ -10,7 +10,7 @@ Compatible Smart Pointer Type
 The interface reference for this library makes use of the pseudo-type
 
 .. parsed-literal::
-   *compatible-smart-ptr<T>*
+   *compatible-smart-ptr*\ <T>
 
 to indicate that either ``std::auto_ptr<T>`` or
 ``std::unique_ptr<T>`` is being used depending on the compiler C++ standard.
@@ -39,7 +39,7 @@ Boost.Pointer Container provides function overloads which use
 ``std::unique_ptr<T>`` instead. Thus, all mentions of
 
 .. parsed-literal::
-   *compatible-smart-ptr<T>*
+   *compatible-smart-ptr*\ <T>
 
 shall be understood to mean that `Boost.Config
 <../../config/index.html>`_ has been used as outlined above to provide
