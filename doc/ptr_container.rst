@@ -264,7 +264,7 @@ are on the `Compatible Smart Pointer <compatible_smart_ptr.html>`_
 page, which also explains the convention in this documentation of using
 
 .. parsed-literal::
-   *compatible-smart-ptr<T>*
+   *compatible-smart-ptr*\ <T>
 
 to indicate such conditional interfaces.
 
