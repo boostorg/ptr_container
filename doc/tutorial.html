@@ -719,22 +719,21 @@ catch( boost::bad_ptr_container_operation&amp; e )
 <div class="section" id="compatible-smart-pointer-overloads">
 <h1>Compatible smart pointer overloads</h1>
 <p>Every time there is a function that takes a <tt class="docutils literal">T*</tt> parameter, there is
-also a function taking an <tt class="docutils literal"><span class="pre"><a class="reference external" href="compatible_smart_ptr.html"><em>compatible-smart-ptr</em></a>&lt;U&gt;</span></tt> parameter. This
-is of course done to make the library intregrate seamlessly with
-<tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> or <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>. For example, consider a
-statement like</p>
+also a function overload (or two) taking a <tt class="docutils literal"><span class="pre"><a class="reference external" href="compatible_smart_ptr.html"><em>compatible-smart-ptr</em></a>&lt;U&gt;</span></tt>
+parameter. This is of course done to make the library intregrate
+seamlessly with <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> or <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>. For example,
+consider a statement like</p>
 <pre class="literal-block">
 std::ptr_vector&lt;Base&gt; vec;
 vec.push_back( new Base );
 </pre>
-<p>If <tt class="docutils literal"><span class="pre"><a class="reference external" href="compatible_smart_ptr.html"><em>compatible-smart-ptr</em></a></span></tt> is <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt>, this is complemented
+<p>If the compiler supports <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt>, this is complemented
 by</p>
 <pre class="literal-block">
 std::auto_ptr&lt;Derived&gt; p( new Derived );
 vec.push_back( p );
 </pre>
-<p>If <tt class="docutils literal"><span class="pre"><a class="reference external" href="compatible_smart_ptr.html"><em>compatible-smart-ptr</em></a></span></tt> is <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>, the complementary
-expression is</p>
+<p>Similarly if <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt> is available, we can write</p>
 <pre class="literal-block">
 std::unique_ptr&lt;Derived&gt; p( new Derived );
 vec.push_back( std::move( p ) );

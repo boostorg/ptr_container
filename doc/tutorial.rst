@@ -379,22 +379,21 @@ Compatible smart pointer overloads
 ----------------------------------
 
 Every time there is a function that takes a ``T*`` parameter, there is
-also a function taking an ``compatible-smart-ptr<U>`` parameter. This
-is of course done to make the library intregrate seamlessly with
-``std::auto_ptr`` or ``std::unique_ptr``. For example, consider a
-statement like :: 
+also a function overload (or two) taking a ``compatible-smart-ptr<U>``
+parameter. This is of course done to make the library intregrate
+seamlessly with ``std::auto_ptr`` or ``std::unique_ptr``. For example,
+consider a statement like :: 
 
   std::ptr_vector<Base> vec;
   vec.push_back( new Base );
 
-If ``compatible-smart-ptr`` is ``std::auto_ptr``, this is complemented
+If the compiler supports ``std::auto_ptr``, this is complemented
 by ::
 
   std::auto_ptr<Derived> p( new Derived );
   vec.push_back( p );
 
-If ``compatible-smart-ptr`` is ``std::unique_ptr``, the complementary
-expression is ::
+Similarly if ``std::unique_ptr`` is available, we can write ::
 
   std::unique_ptr<Derived> p( new Derived );
   vec.push_back( std::move( p ) );

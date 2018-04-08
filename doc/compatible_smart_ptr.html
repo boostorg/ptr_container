@@ -364,32 +364,97 @@ ul.auto-toc {
 <h1 class="title"><img alt="Boost" src="boost.png" /> Pointer Container Library</h1>
 <h2 class="subtitle" id="compatible-smart-pointer-type">Compatible Smart Pointer Type</h2>
 
-<p>The interface reference for this library makes use of the pseudo-type</p>
+<p>When specifying parameter or return types in interfaces, the documentation
+for this library uses the pseudo-type</p>
 <pre class="literal-block">
 <em>compatible-smart-ptr</em>&lt;T&gt;
 </pre>
-<p>to indicate that either <tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt> or
-<tt class="docutils literal"><span class="pre">std::unique_ptr&lt;T&gt;</span></tt> is being used depending on the compiler C++ standard.</p>
+<p>to indicate that the compiler C++ standard is being used to
+selectively provide or remove interfaces with <tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt> or
+<tt class="docutils literal"><span class="pre">std::unique_ptr&lt;T&gt;</span></tt>. The exact meaning varies depending on whether
+the smart pointer type is a parameter or a return type.</p>
+<p><strong>Parameter Types:</strong></p>
+<p>An interface such as</p>
+<pre class="literal-block">
+void container::push_back( <em>compatible-smart-ptr</em>&lt;T&gt; );
+</pre>
+<p>indicates that an overload of <tt class="docutils literal"><span class="pre">container::push_back</span></tt> is present for
+one or both of <tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt>, <tt class="docutils literal"><span class="pre">std::unique_ptr&lt;T&gt;</span></tt>;
+Boost.Pointer Container provides an overload for each type supported
+by the compiler. To be completely explicit, if the compiler provides
+<tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt>, then</p>
+<pre class="literal-block">
+void container::push_back( std::auto_ptr&lt;T&gt; );
+</pre>
+<p>is present. If the compiler provides <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>, then</p>
+<pre class="literal-block">
+void container::push_back( std::unique_ptr&lt;T&gt; );
+</pre>
+<p>is present. And if the compiler provides both, both overloads are
+present.</p>
+<p>In practice this means that C++98/03 users have access to
+<tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> overloads, C++11/14 users have access to
+overloads taking both <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> and <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>, and
+users of C++17 and onwards only have access to <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>
+overloads.</p>
+<p>The convention outlined above implies that in certain cases the
+documentation will make reference to a single function taking the
+compatible smart pointer pseudo parameter, when in fact two distinct
+overloaded functions are present. Of course the actual interface
+depends on compiler settings, so for clarity the <a class="reference external" href="reversible_ptr_container.html">class hierarchy
+reference</a> will only ever refer to a
+single function.</p>
+<p><strong>Return Types:</strong></p>
+<p>The case of return types is handled along the same lines as parameter
+types, subject of course to the restriction that C++ functions cannot
+be overloaded by return type. Thus, an interface such as</p>
+<pre class="literal-block">
+<em>compatible-smart-ptr</em>&lt;T&gt; container::release( );
+</pre>
+<p>means that precisely one of <tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt> or
+<tt class="docutils literal"><span class="pre">std::unique_ptr&lt;T&gt;</span></tt> is used as the return type. If the compiler
+provides <tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt>, then</p>
+<pre class="literal-block">
+std::auto_ptr&lt;T&gt; container::release( );
+</pre>
+<p>is present, even if the compiler provides <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>. For
+compilers that only provide <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>, the interface above
+becomes</p>
+<pre class="literal-block">
+std::unique_ptr&lt;T&gt; container::release( );
+</pre>
+<p>In practice, this means that for users of C++98/03/11/14, such return
+types are always <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt>; for users of C++17 and onwards the
+return type is <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>.</p>
 <p><strong>Details:</strong></p>
 <p>The ISO C++11 standard saw the addition of the smart pointer class template
-<tt class="docutils literal"><span class="pre">std::unique_ptr&lt;T&gt;</span></tt>, and with it the formal deprecation of
-<tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt>. After spending C++11 and C++14 with deprecated
-status, <tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt> has been formally removed as of
+<tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>, and with it the formal deprecation of
+<tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt>. After spending C++11 and C++14 with deprecated
+status, <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> has been formally removed as of
 the ISO C++17 standard. As such, headers mentioning
-<tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt> may be unusable in standard library
-implementations which disable <tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt> when C++17 or later
+<tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> may be unusable in standard library
+implementations which disable <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> when C++17 or later
 is used. Boost.Pointer Container predates the existence of
-<tt class="docutils literal"><span class="pre">std::unique_ptr&lt;T&gt;</span></tt>, and since Boost v. <tt class="docutils literal">1.34</tt> it has provided
-<tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt> overloads for its interfaces. To provide
+<tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>, and since Boost v. <tt class="docutils literal">1.34</tt> it has provided
+<tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> overloads for its interfaces. To provide
 compatibility across a range of C++ standards, macros are used for
-compile-time replacement of <tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt> interfaces with
-<tt class="docutils literal"><span class="pre">std::unique_ptr&lt;T&gt;</span></tt> interfaces.</p>
+compile-time overloading or replacement of <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> interfaces with
+<tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt> interfaces.</p>
 <p><a class="reference external" href="../../config/index.html">Boost.Config</a> defines the macro
 <tt class="docutils literal">BOOST_NO_CXX11_SMART_PTR</tt> for compilers where
-<tt class="docutils literal"><span class="pre">std::unique_ptr&lt;T&gt;</span></tt> is not available. For such compilers,
-Boost.Pointer Container provides function overloads which use
-<tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt>. Otherwise, these overloads will use
-<tt class="docutils literal"><span class="pre">std::unique_ptr&lt;T&gt;</span></tt> instead. Thus, all mentions of</p>
+<tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt> is not available, and <tt class="docutils literal">BOOST_NO_AUTO_PTR</tt> for
+compilers where <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> is removed (or is defective). These
+macros are used for compile-time selection of interfaces depending on
+parameter and return type. For interfaces that take smart pointer
+parameters, Boost.Pointer Container uses <tt class="docutils literal">BOOST_NO_AUTO_PTR</tt> and
+<tt class="docutils literal">BOOST_NO_CXX11_SMART_PTR</tt> independently of each other to provide
+interfaces taking one or both of <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt>,
+<tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt> as parameters. For interfaces with smart pointer
+return types, the Boost.Config macros are used first to check if
+<tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> is available, providing <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt> as the
+return type only for compilers that provide <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt> but
+not <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt>.</p>
+<p>Thus, all mentions of</p>
 <pre class="literal-block">
 <em>compatible-smart-ptr</em>&lt;T&gt;
 </pre>

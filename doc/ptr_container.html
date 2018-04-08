@@ -584,8 +584,9 @@ The underlying containers stem from the two boost libraries</p>
 <div class="section" id="upgrading-from-boost-v-1-66">
 <h1>Upgrading from Boost v. <tt class="docutils literal">1.66.*</tt></h1>
 <p>Starting with Boost v. <tt class="docutils literal">1.67.0</tt>, Boost.Pointer Container will use
-<a class="reference external" href="../../config/index.html">Boost.Config</a> to conditionally replace
-<tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt> interfaces with <tt class="docutils literal"><span class="pre">std::unique_ptr&lt;T&gt;</span></tt>. Details
+<a class="reference external" href="../../config/index.html">Boost.Config</a> to conditionally provide
+<tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>-based interfaces in addition to, or instead of,
+interfaces using <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt>. Details
 are on the <a class="reference external" href="compatible_smart_ptr.html">Compatible Smart Pointer</a>
 page, which also explains the convention in this documentation of using</p>
 <pre class="literal-block">
@@ -593,13 +594,24 @@ page, which also explains the convention in this documentation of using</p>
 </pre>
 <p>to indicate such conditional interfaces.</p>
 <p>For C++98/03 users, this change has no observable effect.</p>
-<p>Note that until C++17, it is possible to construct
-<tt class="docutils literal"><span class="pre">std::unique_ptr&lt;T&gt;</span></tt> from <tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt>, so users compiling
-with C++11 or C++14 may not notice any change, although it is a good
-idea to remove any explicit use of <tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt> all the
-same. The most likely cause of issues may be code that relies on
-<tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt> being copyable, but such errors will occur at
-compile-time and should be easy to fix.</p>
+<p>For C++11/14 users, there is no effect on existing code that used
+previous versions of Boost.Pointer Container, but now all function
+overloads taking an <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> parameter are accompanied by an
+overload taking <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>. In the case of return types,
+<tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> is still always used. Note however that until C++17,
+it is possible to construct <tt class="docutils literal"><span class="pre">std::unique_ptr&lt;T&gt;</span></tt> implicitly from
+<tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt>. Thus, users are free to modernize their code by
+replacing any explicit mention of <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> with
+<tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>. This change falls just short of a
+search-and-replace conversion, as it is possible that some code may
+have relied on <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> being copyable. But such situations
+will result in compile-time errors which should be easy to fix.</p>
+<p>Although <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> is formally removed as of ISO C++17,
+certain compiler or standard library vendors have chosen to leave it
+in for backwards compatibility. For compilers and standard libraries
+where this is <em>not</em> the case, C++17 compilation of code using
+Boost.Pointer Container is not possible with Boost v. <tt class="docutils literal">1.66.*</tt> or
+earlier. This situation is fixed as of Boost v. <tt class="docutils literal">1.67.0</tt>.</p>
 </div>
 <div class="section" id="future-developments">
 <h1>Future Developments</h1>
