@@ -362,134 +362,108 @@ ul.auto-toc {
 <body>
 <div class="document" id="boost-pointer-container-library">
 <h1 class="title"><img alt="Boost" src="boost.png" /> Pointer Container Library</h1>
+<h2 class="subtitle" id="compatible-smart-pointer-type">Compatible Smart Pointer Type</h2>
 
-<div class="section" id="class-ptr-set-adapter">
-<h1>Class <tt class="docutils literal">ptr_set_adapter</tt></h1>
-<p>This class is used to build custom pointer containers with
-an underlying set-like container. The interface of the class is an extension
-of the interface from <tt class="docutils literal">associative_ptr_container</tt>.</p>
-<p><strong>Hierarchy:</strong></p>
-<ul class="simple">
-<li><a class="reference external" href="reversible_ptr_container.html">reversible_ptr_container</a><ul>
-<li><a class="reference external" href="associative_ptr_container.html">associative_ptr_container</a><ul>
-<li><tt class="docutils literal">ptr_set_adapter</tt></li>
-<li><a class="reference external" href="ptr_multiset_adapter.html">ptr_multiset_adapter</a></li>
-<li><a class="reference external" href="ptr_map_adapter.html">ptr_map_adapter</a></li>
-<li><a class="reference external" href="ptr_multimap_adapter.html">ptr_multi_map_adapter</a><ul>
-<li><a class="reference external" href="ptr_set.html">ptr_set</a></li>
-<li><a class="reference external" href="ptr_multiset.html">ptr_multi_set</a></li>
-<li><a class="reference external" href="ptr_map.html">ptr_map</a></li>
-<li><a class="reference external" href="ptr_multimap.html">ptr_multimap</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><strong>Navigate:</strong></p>
+<p>When specifying parameter or return types in interfaces, the documentation
+for this library uses the pseudo-type</p>
+<pre class="literal-block">
+<em>compatible-smart-ptr</em>&lt;T&gt;
+</pre>
+<p>to indicate that the compiler C++ standard is being used to
+selectively provide or remove interfaces with <tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt> or
+<tt class="docutils literal"><span class="pre">std::unique_ptr&lt;T&gt;</span></tt>. The exact meaning varies depending on whether
+the smart pointer type is a parameter or a return type.</p>
+<p><strong>Parameter Types:</strong></p>
+<p>An interface such as</p>
+<pre class="literal-block">
+void container::push_back( <em>compatible-smart-ptr</em>&lt;T&gt; );
+</pre>
+<p>indicates that an overload of <tt class="docutils literal"><span class="pre">container::push_back</span></tt> is present for
+one or both of <tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt>, <tt class="docutils literal"><span class="pre">std::unique_ptr&lt;T&gt;</span></tt>;
+Boost.Pointer Container provides an overload for each type supported
+by the compiler. To be completely explicit, if the compiler provides
+<tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt>, then</p>
+<pre class="literal-block">
+void container::push_back( std::auto_ptr&lt;T&gt; );
+</pre>
+<p>is present. If the compiler provides <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>, then</p>
+<pre class="literal-block">
+void container::push_back( std::unique_ptr&lt;T&gt; );
+</pre>
+<p>is present. And if the compiler provides both, both overloads are
+present.</p>
+<p>In practice this means that C++98/03 users have access to
+<tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> overloads, C++11/14 users have access to
+overloads taking both <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> and <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>, and
+users of C++17 and onwards only have access to <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>
+overloads.</p>
+<p>The convention outlined above implies that in certain cases the
+documentation will make reference to a single function taking the
+compatible smart pointer pseudo parameter, when in fact two distinct
+overloaded functions are present. Of course the actual interface
+depends on compiler settings, so for clarity the <a class="reference external" href="reversible_ptr_container.html">class hierarchy
+reference</a> will only ever refer to a
+single function.</p>
+<p><strong>Return Types:</strong></p>
+<p>The case of return types is handled along the same lines as parameter
+types, subject of course to the restriction that C++ functions cannot
+be overloaded by return type. Thus, an interface such as</p>
+<pre class="literal-block">
+<em>compatible-smart-ptr</em>&lt;T&gt; container::release( );
+</pre>
+<p>means that precisely one of <tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt> or
+<tt class="docutils literal"><span class="pre">std::unique_ptr&lt;T&gt;</span></tt> is used as the return type. If the compiler
+provides <tt class="docutils literal"><span class="pre">std::auto_ptr&lt;T&gt;</span></tt>, then</p>
+<pre class="literal-block">
+std::auto_ptr&lt;T&gt; container::release( );
+</pre>
+<p>is present, even if the compiler provides <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>. For
+compilers that only provide <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>, the interface above
+becomes</p>
+<pre class="literal-block">
+std::unique_ptr&lt;T&gt; container::release( );
+</pre>
+<p>In practice, this means that for users of C++98/03/11/14, such return
+types are always <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt>; for users of C++17 and onwards the
+return type is <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>.</p>
+<p><strong>Details:</strong></p>
+<p>The ISO C++11 standard saw the addition of the smart pointer class template
+<tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>, and with it the formal deprecation of
+<tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt>. After spending C++11 and C++14 with deprecated
+status, <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> has been formally removed as of
+the ISO C++17 standard. As such, headers mentioning
+<tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> may be unusable in standard library
+implementations which disable <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> when C++17 or later
+is used. Boost.Pointer Container predates the existence of
+<tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt>, and since Boost v. <tt class="docutils literal">1.34</tt> it has provided
+<tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> overloads for its interfaces. To provide
+compatibility across a range of C++ standards, macros are used for
+compile-time overloading or replacement of <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> interfaces with
+<tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt> interfaces.</p>
+<p><a class="reference external" href="../../config/index.html">Boost.Config</a> defines the macro
+<tt class="docutils literal">BOOST_NO_CXX11_SMART_PTR</tt> for compilers where
+<tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt> is not available, and <tt class="docutils literal">BOOST_NO_AUTO_PTR</tt> for
+compilers where <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> is removed (or is defective). These
+macros are used for compile-time selection of interfaces depending on
+parameter and return type. For interfaces that take smart pointer
+parameters, Boost.Pointer Container uses <tt class="docutils literal">BOOST_NO_AUTO_PTR</tt> and
+<tt class="docutils literal">BOOST_NO_CXX11_SMART_PTR</tt> independently of each other to provide
+interfaces taking one or both of <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt>,
+<tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt> as parameters. For interfaces with smart pointer
+return types, the Boost.Config macros are used first to check if
+<tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt> is available, providing <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt> as the
+return type only for compilers that provide <tt class="docutils literal"><span class="pre">std::unique_ptr</span></tt> but
+not <tt class="docutils literal"><span class="pre">std::auto_ptr</span></tt>.</p>
+<p>Thus, all mentions of</p>
+<pre class="literal-block">
+<em>compatible-smart-ptr</em>&lt;T&gt;
+</pre>
+<p>shall be understood to mean that <a class="reference external" href="../../config/index.html">Boost.Config</a> has been used as outlined above to provide
+a smart pointer interface that is compatible with compiler settings.</p>
+<p><strong>Navigate</strong></p>
 <ul class="simple">
 <li><a class="reference external" href="ptr_container.html">home</a></li>
 <li><a class="reference external" href="reference.html">reference</a></li>
-</ul>
-<p><strong>Synopsis:</strong></p>
-<pre class="literal-block">
-namespace boost
-{
-    template
-    &lt;
-        class Key,
-        class VoidPtrSet,
-        class CloneAllocator = heap_clone_allocator
-    &gt;
-    class ptr_set_adapter
-    {
-
-    public: // <a class="reference internal" href="#modifiers">modifiers</a>
-        std::pair&lt;iterator,bool&gt;  insert( Key* x );
-        template&lt; class Key2 &gt;
-        std::pair&lt;iterator,bool&gt;  insert( <a class="reference external" href="compatible_smart_ptr.html"><em>compatible-smart-ptr</em></a>&lt;Key2&gt; x );
-
-    public: // <a class="reference internal" href="#pointer-container-requirements">pointer container requirements</a>
-        bool      transfer( iterator object, ptr_set_adapter&amp; from );
-        size_type transfer( iterator first, iterator last, ptr_set_adapter&amp; from );
-        template&lt; class Range &gt;
-        size_type transfer( const Range&amp; r, ptr_set_adapter&amp; from );
-        size_type transfer( ptr_set_adapter&amp; from );
-
-    }; //  class 'ptr_set_adapter'
-
-} // namespace 'boost'
-</pre>
-</div>
-<div class="section" id="semantics">
-<h1>Semantics</h1>
-<div class="section" id="semantics-modifiers">
-<span id="modifiers"></span><h2>Semantics: modifiers</h2>
-<ul>
-<li><p class="first"><tt class="docutils literal"><span class="pre">std::pair&lt;iterator,bool&gt;</span> insert( key_type* x );</tt></p>
-<blockquote>
-<ul class="simple">
-<li>Requirements: <tt class="docutils literal">x != 0</tt></li>
-<li>Effects: Takes ownership of <tt class="docutils literal">x</tt> and insert it if there is no equivalent of it already. The <tt class="docutils literal">bool</tt> part of the return value indicates insertion and the iterator points to the element with key <tt class="docutils literal">x</tt>.</li>
-<li>Throws: bad_pointer if <tt class="docutils literal">x == 0</tt></li>
-<li>Exception safety: Strong guarantee</li>
-</ul>
-</blockquote>
-</li>
-<li><p class="first"><tt class="docutils literal">template&lt; class Key2 &gt; <span class="pre">std::pair&lt;iterator,bool&gt;</span>&nbsp; insert( <span class="pre"><a class="reference external" href="compatible_smart_ptr.html"><em>compatible-smart-ptr</em></a>&lt;Key2&gt;</span> x );</tt></p>
-<blockquote>
-<ul class="simple">
-<li>Effects: <tt class="docutils literal">return insert( x.release() );</tt></li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<!-- - ``std::pair<iterator,bool> insert( const key_type& x );``
-
-- Effects: ``return insert( allocate_clone( x ) );``
-
-- Exception safety: Strong guarantee -->
-</div>
-<div class="section" id="semantics-pointer-container-requirements">
-<span id="pointer-container-requirements"></span><h2>Semantics: pointer container requirements</h2>
-<ul>
-<li><p class="first"><tt class="docutils literal">bool transfer( iterator object, ptr_set_adapter&amp; from );</tt></p>
-<blockquote>
-<ul class="simple">
-<li>Requirements: <tt class="docutils literal">not from.empty()</tt></li>
-<li>Effects: Inserts the object defined by <tt class="docutils literal">object</tt> into the container and remove it from <tt class="docutils literal">from</tt>
-iff no equivalent object exists.</li>
-<li>Returns: whether the object was transfered</li>
-<li>Exception safety: Strong guarantee</li>
-</ul>
-</blockquote>
-</li>
-<li><p class="first"><tt class="docutils literal">void transfer( iterator first, iterator last, ptr__set_adapter&amp; from );</tt></p>
-<blockquote>
-<ul class="simple">
-<li>Requirements: <tt class="docutils literal">not from.empty()</tt></li>
-<li>Effects: Inserts the objects defined by the range <tt class="docutils literal">[first,last)</tt> into the container and remove it from <tt class="docutils literal">from</tt>.
-An object is only transferred if no equivalent object exists.</li>
-<li>Returns: the number of transfered objects</li>
-<li>Exception safety: Basic guarantee</li>
-</ul>
-</blockquote>
-</li>
-<li><p class="first"><tt class="docutils literal">template&lt; class Range &gt; void transfer( const Range&amp; r, ptr_set_adapter&amp; from );</tt></p>
-<blockquote>
-<ul class="simple">
-<li>Effects: <tt class="docutils literal">return transfer( <span class="pre">boost::begin(r),</span> <span class="pre">boost::end(r),</span> from );</tt></li>
-</ul>
-</blockquote>
-</li>
-<li><p class="first"><tt class="docutils literal">size_type transfer( ptr_set_adapter&amp; from );</tt></p>
-<blockquote>
-<ul class="simple">
-<li>Effects: <tt class="docutils literal">return transfer( <span class="pre">from.begin(),</span> <span class="pre">from.end(),</span> from );</tt>.</li>
-</ul>
-</blockquote>
-</li>
 </ul>
 <hr><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -499,8 +473,6 @@ An object is only transferred if no equivalent object exists.</li>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
 </div>
 </body>
 </html>
