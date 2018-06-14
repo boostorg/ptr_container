@@ -211,7 +211,7 @@ void ptr_map_test()
 
     i  = c.find( get_next_key( a_key ) );
     ci = c2.find( get_next_key( a_key ) );
-    c2.count( get_next_key( a_key ) );
+    BOOST_CHECK_EQUAL(0, c2.count( get_next_key( a_key ) ));
     i  = c.lower_bound( get_next_key( a_key ) );
     ci = c2.lower_bound( get_next_key( a_key ) );
     i  = c.upper_bound( get_next_key( a_key ) );
