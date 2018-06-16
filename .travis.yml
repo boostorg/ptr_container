@@ -26,6 +26,11 @@ sudo: false
 dist: trusty
 language: cpp
 
+# see issue #19 on github
+matrix:
+  allow_failures:
+    - env: COMMENT=UBSAN
+
 env:
   global:
   # see: http://www.boost.org/build/doc/html/bbv2/overview/invocation.html#bbv2.overview.invocation.properties
