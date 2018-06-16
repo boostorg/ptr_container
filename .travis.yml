@@ -115,20 +115,21 @@ jobs:
         - cd $BOOST_ROOT/libs/$SELF
         - ci/travis/cppcheck.sh
 
-    - os: linux
-      env:
-        - COMMENT=UBSAN
-        - B2_VARIANT=variant=debug
-        - TOOLSET=gcc-7
-        - CXXFLAGS="cxxflags=-fno-omit-frame-pointer cxxflags=-fsanitize=undefined cxxflags=-fno-sanitize-recover=undefined"
-        - LINKFLAGS="linkflags=-fsanitize=undefined linkflags=-fno-sanitize-recover=undefined linkflags=-fuse-ld=gold"
-        - UBSAN_OPTIONS=print_stacktrace=1
-      addons:
-        apt:
-          packages:
-            - g++-7
-          sources:
-            - ubuntu-toolchain-r-test
+  # disabled - see github issue #18
+  # - os: linux
+  #   env:
+  #     - COMMENT=UBSAN
+  #     - B2_VARIANT=variant=debug
+  #     - TOOLSET=gcc-7
+  #     - CXXFLAGS="cxxflags=-fno-omit-frame-pointer cxxflags=-fsanitize=undefined cxxflags=-fno-sanitize-recover=undefined"
+  #     - LINKFLAGS="linkflags=-fsanitize=undefined linkflags=-fno-sanitize-recover=undefined linkflags=-fuse-ld=gold"
+  #     - UBSAN_OPTIONS=print_stacktrace=1
+  #   addons:
+  #     apt:
+  #       packages:
+  #         - g++-7
+  #       sources:
+  #         - ubuntu-toolchain-r-test
 
     - os: linux
       env: 
