@@ -124,7 +124,7 @@ void test_set()
 #ifndef BOOST_NO_AUTO_PTR
     BOOST_CHECK_THROW( (set.replace(set.begin(), std::auto_ptr<int>(0) )), bad_ptr_container_operation );
 #endif
-#ifndef BOOST_NO_CXX11_SMART_PTR
+#if !defined(BOOST_NO_CXX11_SMART_PTR) && !defined(BOOST_NO_CXX11_NULLPTR)
     BOOST_CHECK_THROW( (set.replace(set.begin(), std::unique_ptr<int>(nullptr) )), bad_ptr_container_operation );
 #endif
 
