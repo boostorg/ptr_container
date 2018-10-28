@@ -57,6 +57,18 @@ void test_list()
     list.push_front( std::unique_ptr<int>( new int(43) ) );
 #endif
     list.reverse();
+    ptr_list<int>::const_iterator it = list.begin();
+    BOOST_CHECK(1 == *it++);
+    BOOST_CHECK(2 == *it++);
+    BOOST_CHECK(0 == *it++);
+    BOOST_CHECK(3 == *it++);
+#ifndef BOOST_NO_AUTO_PTR
+    BOOST_CHECK(42 == *it++);
+#endif
+#ifndef BOOST_NO_CXX11_SMART_PTR
+    BOOST_CHECK(43 == *it++);
+#endif
+    BOOST_CHECK(list.end() == it);
 }
 
 #if defined(BOOST_PTR_CONTAINER_DISABLE_DEPRECATED)
