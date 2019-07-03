@@ -43,4 +43,5 @@ test-suite ptr_container :
     [ compile const_element_containers.cpp ]
  #   [ sc-test null_filter_iterator ]    
   
+    [ compile issue_23.cpp ]
     ;
