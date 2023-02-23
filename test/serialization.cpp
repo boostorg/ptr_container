@@ -203,8 +203,29 @@ void test_serialization_unordered_set_helper()
     std::remove( fn.c_str() );
 
     BOOST_CHECK_EQUAL( vec.size(), vec2.size() );
-    BOOST_CHECK_EQUAL( (*vec2.begin()).i, -1 );
-    BOOST_CHECK_EQUAL( (*++vec2.begin()).i, 0 );
+
+    typename Cont::iterator it = vec2.begin();
+
+    if( it->i == -1 )
+    {
+        ++it;
+
+        BOOST_CHECK_EQUAL( it->i, 0 );
+
+        Derived* d = dynamic_cast<Derived*>( &*it );
+        BOOST_CHECK_EQUAL( d->i2, 1 );
+    }
+    else
+    {
+        BOOST_CHECK_EQUAL( it->i, 0 );
+
+        Derived* d = dynamic_cast<Derived*>( &*it );
+        BOOST_CHECK_EQUAL( d->i2, 1 );
+
+        ++it;
+
+        BOOST_CHECK_EQUAL( it->i, -1 );
+    }
 }
 
 template< class Map, class OArchive, class IArchive >
