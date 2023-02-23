@@ -130,11 +130,14 @@ jobs:
           fetch-depth: ${{ matrix.coverage && '0' || '1' }}
 
       - name: Cache ccache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         if: env.B2_USE_CCACHE
         with:
           path: ~/.ccache
-          key: ${{matrix.os}}-${{matrix.container}}-${{matrix.compiler}}
+          key: ${{matrix.os}}-${{matrix.container}}-${{matrix.compiler}}-${{github.sha}}
+          restore-keys: |
+            ${{matrix.os}}-${{matrix.container}}-${{matrix.compiler}}-
+            ${{matrix.os}}-${{matrix.container}}-${{matrix.compiler}}
 
       - name: Fetch Boost.CI
         uses: actions/checkout@v3
