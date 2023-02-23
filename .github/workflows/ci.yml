@@ -14,14 +14,7 @@ on:
     branches:
       - master
       - develop
-      - bugfix/**
       - feature/**
-      - fix/**
-      - pr/**
-
-concurrency:
-  group: ${{format('{0}:{1}', github.repository, github.ref)}}
-  cancel-in-progress: true
 
 env:
   ASAN_OPTIONS: allocator_may_return_null=1
@@ -131,7 +124,7 @@ jobs:
             fi
             git config --global pack.threads 0
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           # For coverage builds fetch the whole history, else only 1 commit using a 'fake ternary'
           fetch-depth: ${{ matrix.coverage && '0' || '1' }}
@@ -144,7 +137,7 @@ jobs:
           key: ${{matrix.os}}-${{matrix.container}}-${{matrix.compiler}}
 
       - name: Fetch Boost.CI
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: boostorg/boost-ci
           ref: master
@@ -251,10 +244,10 @@ jobs:
     runs-on: ${{matrix.os}}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Fetch Boost.CI
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: boostorg/boost-ci
           ref: master
@@ -309,10 +302,10 @@ jobs:
     runs-on: ${{matrix.os}}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Fetch Boost.CI
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: boostorg/boost-ci
           ref: master
