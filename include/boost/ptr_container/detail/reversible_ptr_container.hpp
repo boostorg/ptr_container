@@ -36,7 +36,7 @@
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/type_traits/is_integral.hpp>
-#include <boost/swap.hpp>
+#include <boost/core/invoke_swap.hpp>
 #include <typeinfo>
 #include <memory>
 
@@ -546,8 +546,8 @@ namespace ptr_container_detail
             { return const_reverse_iterator( this->begin() ); }
 
         void swap( reversible_ptr_container& r ) // nothrow
-        { 
-            boost::swap( get_clone_allocator(), r.get_clone_allocator() ); // nothrow
+        {
+            boost::core::invoke_swap( get_clone_allocator(), r.get_clone_allocator() ); // nothrow
             c_.swap( r.c_ ); // nothrow
         }
           
