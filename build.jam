@@ -5,28 +5,31 @@
 
 require-b2 5.2 ;
 
+constant boost_dependencies :
+    /boost/array//boost_array
+    /boost/assert//boost_assert
+    /boost/circular_buffer//boost_circular_buffer
+    /boost/config//boost_config
+    /boost/core//boost_core
+    /boost/iterator//boost_iterator
+    /boost/mpl//boost_mpl
+    /boost/range//boost_range
+    /boost/smart_ptr//boost_smart_ptr
+    /boost/static_assert//boost_static_assert
+    /boost/type_traits//boost_type_traits
+    /boost/unordered//boost_unordered
+    /boost/utility//boost_utility ;
+
 project /boost/ptr_container
     : common-requirements
-        <library>/boost/array//boost_array
-        <library>/boost/assert//boost_assert
-        <library>/boost/circular_buffer//boost_circular_buffer
-        <library>/boost/config//boost_config
-        <library>/boost/core//boost_core
-        <library>/boost/iterator//boost_iterator
-        <library>/boost/mpl//boost_mpl
-        <library>/boost/range//boost_range
-        <library>/boost/smart_ptr//boost_smart_ptr
-        <library>/boost/static_assert//boost_static_assert
-        <library>/boost/type_traits//boost_type_traits
-        <library>/boost/unordered//boost_unordered
-        <library>/boost/utility//boost_utility
         <include>include
     ;
 
 explicit
-    [ alias boost_ptr_container ]
+    [ alias boost_ptr_container : : : : <library>$(boost_dependencies) ]
     [ alias all : boost_ptr_container test ]
     ;
 
 call-if : boost-library ptr_container
     ;
+
