@@ -11,7 +11,9 @@
 
 import testing ;
 
-project : requirements <library>/boost/test//boost_unit_test_framework/<link>static ;
+project : requirements
+    <library>/boost/ptr_container//boost_ptr_container
+    <library>/boost/test//boost_unit_test_framework/<link>static ;
 
 run ptr_inserter.cpp /boost/assign//boost_assign ;
 run ptr_vector.cpp /boost/assign//boost_assign /boost/lexical_cast//boost_lexical_cast ;
